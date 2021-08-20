@@ -260,3 +260,39 @@
     width: 100%;
   }
 }
+
+.modal {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  display: none;
+}
+
+.modal_open {
+  display: flex;
+}
+
+.modal__container {
+  background-color: white;
+  max-width: 430px;
+  border-radius: 10px;
+  padding: 36px;
+  position: relative;
+}
+
+.modal__close {
+  background-image: url(../images/add.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  position: absolute;
+  transform: rotate(45deg);
+  width: 40px;
+  height: 40px;
+  top: -30px;
+  right: -30px;
+}
