@@ -215,6 +215,10 @@
     margin: 0 19px 36px;
   }
 
+  .profile__info {
+    margin-bottom: 36px;
+  }
+
   .profile__avatar {
     margin: 0 auto 30px;
   }
@@ -224,7 +228,7 @@
   }
 
   .profile__subtitle {
-    margin: 0 auto 36px;
+    margin: 0 auto 0;
     text-align: center;
   }
 

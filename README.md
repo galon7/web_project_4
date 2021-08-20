@@ -2,15 +2,18 @@
 
 ### Overview
 
-- Figma
-- Images
+- Description
+- Technologies
+- Website
 
-**Figma**
+**Description**
 
-- [Link to the project in Figma](https://www.figma.com/file/SurN1jaeEQIhuZEDMhmWWf/Sprint-4-Around-The-U.S.-desktop-mobile?node-id=0%3A1)
+- This is an interactive page where users can add, remove, or like photos.
 
-**Images**
+**Technologies**
 
-The way you'll do this at work is by exporting images directly from Figma — we recommend doing that to practice more. Don't forget to optimize them [here](https://tinypng.com/), so your project loads faster.
+- In this project I first used JavaScript to make the page interactive by manipulating the DOM.
 
-Have fun with JavaScript!
+**Website**
+
+- [The project on GitHub Pages](https://galon7.github.io/web_project_4/)
