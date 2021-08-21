@@ -109,6 +109,10 @@
   margin: 0 0 0 18px;
 }
 
+.profile__info-edit:hover {
+  opacity: 0.8;
+}
+
 .profile__add-button {
   background-image: url("../images/add.svg");
   background-color: black;
@@ -120,6 +124,10 @@
   width: 150px;
   min-height: 50px;
   border: white 2px solid;
+}
+
+.profile__add-button:hover {
+  opacity: 0.8;
 }
 
 @media screen and (max-width: 780px) {
@@ -183,6 +191,10 @@
   min-width: 21px;
   min-height: 19px;
   border: 0;
+}
+
+.elements__group:hover {
+  opacity: 0.5;
 }
 
 .footer__copyright {
@@ -271,6 +283,7 @@
   align-items: center;
   color: black;
   display: none;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .modal_open {
@@ -341,6 +354,10 @@
   text-align: center;
   border: none;
   border-radius: 2px;
+}
+
+.form__button:hover {
+  opacity: 0.8;
 }
 
 @media screen and (max-width: 510px) {
