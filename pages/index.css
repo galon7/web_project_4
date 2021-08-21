@@ -24,7 +24,7 @@
 @import url(../blocks/modal/__close/modal__close.css);
 @import url(../blocks/modal/__title/modal__title.css);
 @import url(../blocks/modal/__form/modal__form.css);
-@import url(../blocks/form/__input/form__input.css);
-@import url(../blocks/form/__input/_field/form__input_field_name.css);
-@import url(../blocks/form/__input/_field/form__input_field_profession.css);
-@import url(../blocks/form/__submit-button/form__submit-button.css);
+@import url(../blocks/modal/__input/modal__input.css);
+@import url(../blocks/modal/__input/_field/modal__input_field_name.css);
+@import url(../blocks/modal/__input/_field/modal__input_field_profession.css);
+@import url(../blocks/modal/__submit-button/modal__submit-button.css);

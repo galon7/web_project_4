@@ -2,8 +2,8 @@ const editBtn = document.querySelector(".profile__info-edit");
 const modal = document.querySelector(".modal");
 const closeBtn = document.querySelector(".modal__close");
 const form = document.querySelector(".modal__form");
-const title = document.querySelector(".form__input_field_name");
-const subtitle = document.querySelector(".form__input_field_profession");
+const title = document.querySelector(".modal__input_field_name");
+const subtitle = document.querySelector(".modal__input_field_profession");
 const profileTitle = document.querySelector(".profile__title");
 const profileSubtitle = document.querySelector(".profile__subtitle");
 
