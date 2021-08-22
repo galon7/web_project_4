@@ -1,6 +1,6 @@
-.elements__group {
+.elements__like-button {
   background-image: url("../../../images/group.svg");
-  background-color: white;
+  background-color: transparent;
   background-repeat: no-repeat;
   background-position: center;
   align-self: center;
@@ -10,6 +10,8 @@
   border: 0;
 }
 
-.elements__group:hover {
+.elements__like-button:hover {
   opacity: 0.5;
+  transition: 0.3s;
+  cursor: pointer;
 }

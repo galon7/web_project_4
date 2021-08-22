@@ -7,6 +7,8 @@
 
 @media screen and (max-width: 510px) {
   .modal__title {
+    font-size: 18px;
+    line-height: 22px;
     margin-left: 22px;
   }
 }

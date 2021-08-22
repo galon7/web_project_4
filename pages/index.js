@@ -12,11 +12,13 @@ function resetForm() {
   subtitle.value="";
 }
 
-editBtn.addEventListener("click", function() {
+function openModal() {
   modal.classList.add("modal_open");
   title.value = profileTitle.textContent;
   subtitle.value = profileSubtitle.textContent;
-})
+}
+
+editBtn.addEventListener("click", openModal);
 
 closeBtn.addEventListener("click", function() {
   modal.classList.remove("modal_open");

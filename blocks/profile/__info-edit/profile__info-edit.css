@@ -1,6 +1,6 @@
 .profile__info-edit {
   background-image: url("../../../images/edit.svg");
-  background-color: black;
+  background-color: transparent;
   background-repeat: no-repeat;
   background-position: center;
   width: 24px;
@@ -10,7 +10,7 @@
 }
 
 .profile__info-edit:hover {
-  opacity: 0.8;
+  opacity: 0.6;
 }
 
 @media screen and (max-width: 510px) {
