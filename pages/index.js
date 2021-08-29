@@ -26,7 +26,6 @@ const elementsTemplate = document.querySelector("#elements-item").content.queryS
 const elements = document.querySelector(".elements");
 
 
-
 function resetEditForm() {
   title.value = "";
   subtitle.value = "";
@@ -136,8 +135,3 @@ const initialCards = [
 ];
 
 initialCards.forEach(addCard);
-
-
-
-
-
