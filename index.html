@@ -29,90 +29,24 @@
           <button type="button" class="profile__add-button"></button>
         </section>
 
-        <section class="elements">
-          <template id="elements__item">
-            <div class="elements__item">
-              <img src="" alt="A photo of the card" class="elements__img" />
-              <div class="elements__content">
-                <h2 class="elements__title"></h2>
-                <button type="button" class="elements__like-button"></button>
-              </div>
-            </div>
-          </template>
-          <!-- <div class="elements__item">
-            <img
-              src="images/e_yosemite.jpg"
-              alt="Yosemite Valley photo"
-              class="elements__img"
-            />
-            <div class="elements__content">
-              <h2 class="elements__title">Yosemite Valley</h2>
-              <button type="button" class="elements__like-button"></button>
-            </div>
-          </div>
-          <div class="elements__item">
-            <img
-              src="images/e_lake.jpg"
-              alt="Lake Louise photo"
-              class="elements__img"
-            />
-            <div class="elements__content">
-              <h2 class="elements__title">Lake Louise</h2>
-              <button type="button" class="elements__like-button"></button>
-            </div>
-          </div>
-          <div class="elements__item">
-            <img
-              src="images/e_bald.jpg"
-              alt="Bald Mountains photo"
-              class="elements__img"
-            />
-            <div class="elements__content">
-              <h2 class="elements__title">Bald Mountains</h2>
-              <button type="button" class="elements__like-button"></button>
-            </div>
-          </div>
-          <div class="elements__item">
-            <img
-              src="images/e_latemar.jpg"
-              alt="Latemar photo"
-              class="elements__img"
-            />
-            <div class="elements__content">
-              <h2 class="elements__title">Latemar</h2>
-              <button type="button" class="elements__like-button"></button>
-            </div>
-          </div>
-          <div class="elements__item">
-            <img
-              src="images/e_vanoise.jpg"
-              alt="Vanoise National Park photo"
-              class="elements__img"
-            />
-            <div class="elements__content">
-              <h2 class="elements__title">Vanoise National Park</h2>
-              <button type="button" class="elements__like-button"></button>
-            </div>
-          </div>
-          <div class="elements__item">
-            <img
-              src="images/e_lago.jpg"
-              alt="Lago di Braies photo"
-              class="elements__img"
-            />
-            <div class="elements__content">
-              <h2 class="elements__title">Lago di Braies</h2>
-              <button type="button" class="elements__like-button"></button>
-            </div>
-          </div> -->
-        </section>
+        <section class="elements"></section>
       </main>
 
       <footer class="footer">
         <p class="footer__copyright">© 2021 Around The U.S.</p>
       </footer>
 
-      <div class="modal">
+      <template id="elements-item">
+        <div class="elements__item">
+          <img src="" alt="A photo of the card" class="elements__img" />
+          <div class="elements__content">
+            <h2 class="elements__title"></h2>
+            <button type="button" class="elements__like-button"></button>
+          </div>
+        </div>
+      </template>
+
+      <div class="modal modal_type_edit-profile">
         <div class="modal__container">
           <button type="button" class="modal__close"></button>
           <h2 class="modal__title">edit profile</h2>
@@ -131,6 +65,31 @@
               placeholder="Profession"
               name="Profession"
               maxlength="20"
+              required
+            />
+            <button type="submit" class="modal__submit-button">Save</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="modal modal_type_add-card">
+        <div class="modal__container">
+          <button type="button" class="modal__close"></button>
+          <h2 class="modal__title">New place</h2>
+          <form action="#" class="modal__form" name="modal-form">
+            <input
+              type="text"
+              class="modal__input modal__input_field_title"
+              placeholder="Title"
+              name="Title"
+              maxlength="15"
+              required
+            />
+            <input
+              type="text"
+              class="modal__input modal__input_field_image-link"
+              placeholder="Image link"
+              name="Image link"
               required
             />
             <button type="submit" class="modal__submit-button">Save</button>
