@@ -3,11 +3,13 @@ const addBtn = document.querySelector(".profile__add-button");
 
 const editProfileModal = document.querySelector(".modal_type_edit-profile");
 const addCardModal = document.querySelector(".modal_type_add-card");
+const imageModal = document.querySelector(".modal_image")
 
 const modalTitle = document.querySelector(".modal__title")
 
 const editCloseBtn = editProfileModal.querySelector(".modal__close");
 const addCloseBtn = addCardModal.querySelector(".modal__close");
+const imageCloseBtn = imageModal.querySelector(".modal__close")
 
 const addCardForm = addCardModal.querySelector(".modal__form");
 const editProfileForm = editProfileModal.querySelector(".modal__form");
@@ -61,6 +63,10 @@ addCloseBtn.addEventListener("click", function() {
   resetAddForm();
 })
 
+imageCloseBtn.addEventListener("click", function() {
+  imageModal.classList.remove("modal_open");
+})
+
 editProfileForm.addEventListener("submit", function(e) {
   e.preventDefault();
   profileTitle.textContent = title.value;
@@ -79,13 +85,11 @@ addCardForm.addEventListener("submit", function(e) {
 
 function addCard(item) {
   const element = elementsTemplate.cloneNode(true);
-
-  element.querySelector(".elements__img").src = item.link;
-  element.querySelector(".elements__title").textContent = item.name;
-
   const likeBtn = element.querySelector(".elements__like-button");
   const deleteBtn = element.querySelector(".elements__delete-button");
-
+  const image = element.querySelector(".elements__img");
+  element.querySelector(".elements__img").src = item.link;
+  element.querySelector(".elements__title").textContent = item.name;
 
   likeBtn.addEventListener("click", function() {
     likeBtn.classList.toggle("elements__like-button_pressed");
@@ -93,6 +97,12 @@ function addCard(item) {
 
   deleteBtn.addEventListener("click", function() {
     element.remove();
+  })
+
+  image.addEventListener("click", function() {
+    imageModal.classList.add("modal_open");
+    imageModal.querySelector(".modal__image").src = item.link;
+    imageModal.querySelector(".modal__caption").textContent = item.name;
   })
 
   elements.append(element);
