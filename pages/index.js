@@ -36,8 +36,19 @@ function resetAddForm() {
   cardLink.value = "";
 }
 
+function visible(e) {
+  e.style.visibility = "visible";
+  e.style.opacity = "1";
+}
+
+function hidden(e) {
+  e.style.visibility = "hidden";
+  e.style.opacity = "0";
+}
+
 function openModalEdit(e) {
   editProfileModal.classList.add("modal_open");
+  visible(editProfileModal);
   title.value = profileTitle.textContent;
   subtitle.value = profileSubtitle.textContent;
 }
@@ -45,6 +56,7 @@ function openModalEdit(e) {
 function openModalAdd(e) {
   addCardModal.classList.add("modal_open");
   title.value = profileTitle.textContent;
+  visible(addCardModal);
   subtitle.value = profileSubtitle.textContent;
 }
 
@@ -54,16 +66,19 @@ addBtn.addEventListener("click", openModalAdd);
 
 editCloseBtn.addEventListener("click", function() {
   editProfileModal.classList.remove("modal_open");
+  hidden(editProfileModal);
   resetEditForm();
 })
 
 addCloseBtn.addEventListener("click", function() {
   addCardModal.classList.remove("modal_open");
+  hidden(addCardModal);
   resetAddForm();
 })
 
 imageCloseBtn.addEventListener("click", function() {
   imageModal.classList.remove("modal_open");
+  hidden(imageModal);
 })
 
 editProfileForm.addEventListener("submit", function(e) {
@@ -100,6 +115,7 @@ function addCard(item) {
 
   image.addEventListener("click", function() {
     imageModal.classList.add("modal_open");
+    visible(imageModal);
     imageModal.querySelector(".modal__image").src = item.link;
     imageModal.querySelector(".modal__caption").textContent = item.name;
   })
