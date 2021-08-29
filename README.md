@@ -12,7 +12,7 @@
 
 **Technologies**
 
-- In this project added more JavaScript to add more functionality to the page.
+- In this project I added more JavaScript to add more functionality to the page.
 
 **Website**
 
