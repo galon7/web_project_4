@@ -1,3 +1,5 @@
+
+
 const editBtn = document.querySelector(".profile__info-edit");
 const addBtn = document.querySelector(".profile__add-button");
 
@@ -32,8 +34,6 @@ function resetAddForm() {
   cardTitle.value = "";
   cardLink.value = "";
 }
-
-
 
 function openModalEdit(e) {
   editProfileModal.classList.add("modal_open");
@@ -82,8 +82,13 @@ function addCard(item) {
   element.querySelector(".elements__img").src = item.link;
   element.querySelector(".elements__title").textContent = item.name;
   elements.append(element);
-}
 
+  const likeBtn = element.querySelector(".elements__like-button");
+
+  likeBtn.addEventListener("click", function() {
+    likeBtn.classList.toggle("elements__like-button_pressed");
+  })
+}
 
 const initialCards = [
   {
@@ -113,3 +118,8 @@ const initialCards = [
 ];
 
 initialCards.forEach(addCard);
+
+
+
+
+
