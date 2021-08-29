@@ -1,5 +1,3 @@
-
-
 const editBtn = document.querySelector(".profile__info-edit");
 const addBtn = document.querySelector(".profile__add-button");
 
@@ -22,8 +20,10 @@ const cardLink = document.querySelector(".modal__input_field_image-link");
 
 const profileTitle = document.querySelector(".profile__title");
 const profileSubtitle = document.querySelector(".profile__subtitle");
-const elementsTemplate = document.querySelector("#elements-item").content;
+const elementsTemplate = document.querySelector("#elements-item").content.querySelector(".elements__item");
 const elements = document.querySelector(".elements");
+
+
 
 function resetEditForm() {
   title.value = "";
@@ -78,16 +78,24 @@ addCardForm.addEventListener("submit", function(e) {
 })
 
 function addCard(item) {
-  const element = elementsTemplate.querySelector('.elements__item').cloneNode(true);
+  const element = elementsTemplate.cloneNode(true);
+
   element.querySelector(".elements__img").src = item.link;
   element.querySelector(".elements__title").textContent = item.name;
-  elements.append(element);
 
   const likeBtn = element.querySelector(".elements__like-button");
+  const deleteBtn = element.querySelector(".elements__delete-button");
+
 
   likeBtn.addEventListener("click", function() {
     likeBtn.classList.toggle("elements__like-button_pressed");
   })
+
+  deleteBtn.addEventListener("click", function() {
+    element.remove();
+  })
+
+  elements.append(element);
 }
 
 const initialCards = [
