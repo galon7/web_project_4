@@ -12,7 +12,7 @@
 
 **Technologies**
 
-- In this project I first used JavaScript to make the page interactive by manipulating the DOM.
+- In this project added more JavaScript to add more functionality to the page.
 
 **Website**
 
