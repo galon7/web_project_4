@@ -26,16 +26,6 @@ const elementsTemplate = document.querySelector("#elements-item").content.queryS
 const elements = document.querySelector(".elements");
 
 
-function resetEditForm() {
-  title.value = "";
-  subtitle.value = "";
-}
-
-function resetAddForm() {
-  cardTitle.value = "";
-  cardLink.value = "";
-}
-
 function visible(e) {
   e.style.visibility = "visible";
   e.style.opacity = "1";
@@ -46,14 +36,14 @@ function hidden(e) {
   e.style.opacity = "0";
 }
 
-function openModalEdit(e) {
+function openModalEdit() {
   editProfileModal.classList.add("modal_open");
   visible(editProfileModal);
   title.value = profileTitle.textContent;
   subtitle.value = profileSubtitle.textContent;
 }
 
-function openModalAdd(e) {
+function openModalAdd() {
   addCardModal.classList.add("modal_open");
   title.value = profileTitle.textContent;
   visible(addCardModal);
@@ -67,13 +57,13 @@ addBtn.addEventListener("click", openModalAdd);
 editCloseBtn.addEventListener("click", function() {
   editProfileModal.classList.remove("modal_open");
   hidden(editProfileModal);
-  resetEditForm();
+  editProfileForm.reset()
 })
 
 addCloseBtn.addEventListener("click", function() {
   addCardModal.classList.remove("modal_open");
   hidden(addCardModal);
-  resetAddForm();
+  addCardForm.reset()
 })
 
 imageCloseBtn.addEventListener("click", function() {
@@ -86,7 +76,8 @@ editProfileForm.addEventListener("submit", function(e) {
   profileTitle.textContent = title.value;
   profileSubtitle.textContent = subtitle.value;
   editProfileModal.classList.remove("modal_open");
-  resetEditForm();
+  editProfileForm.reset()
+  hidden(editProfileModal);
 })
 
 addCardForm.addEventListener("submit", function(e) {
@@ -94,7 +85,8 @@ addCardForm.addEventListener("submit", function(e) {
   let submitObj = { name: cardTitle.value, link: cardLink.value}
   addCard(submitObj);
   addCardModal.classList.remove("modal_open");
-  resetAddForm();
+  addCardForm.reset()
+  hidden(addCardModal);
 })
 
 function addCard(item) {
@@ -120,7 +112,7 @@ function addCard(item) {
     imageModal.querySelector(".modal__caption").textContent = item.name;
   })
 
-  elements.append(element);
+  elements.prepend(element);
 }
 
 const initialCards = [
@@ -150,4 +142,8 @@ const initialCards = [
   }
 ];
 
-initialCards.forEach(addCard);
+for (let i = initialCards.length - 1; i >= 0 ; i--) {
+  console.log(i);
+    addCard(initialCards[i]);
+  }
+
