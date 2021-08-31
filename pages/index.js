@@ -71,24 +71,6 @@ imageCloseBtn.addEventListener("click", function() {
   hidden(imageModal);
 })
 
-editProfileForm.addEventListener("submit", function(e) {
-  e.preventDefault();
-  profileTitle.textContent = title.value;
-  profileSubtitle.textContent = subtitle.value;
-  editProfileModal.classList.remove("modal_open");
-  editProfileForm.reset()
-  hidden(editProfileModal);
-})
-
-addCardForm.addEventListener("submit", function(e) {
-  e.preventDefault();
-  let submitObj = { name: cardTitle.value, link: cardLink.value}
-  addCard(submitObj);
-  addCardModal.classList.remove("modal_open");
-  addCardForm.reset()
-  hidden(addCardModal);
-})
-
 function addCard(item) {
   const element = elementsTemplate.cloneNode(true);
   const likeBtn = element.querySelector(".elements__like-button");
@@ -115,6 +97,23 @@ function addCard(item) {
   elements.prepend(element);
 }
 
+editProfileForm.addEventListener("submit", function(e) {
+  e.preventDefault();
+  profileTitle.textContent = title.value;
+  profileSubtitle.textContent = subtitle.value;
+  editProfileModal.classList.remove("modal_open");
+  editProfileForm.reset()
+  hidden(editProfileModal);
+})
+
+addCardForm.addEventListener("submit", function(e) {
+  e.preventDefault();
+  const submitObj = { name: cardTitle.value, link: cardLink.value}
+  addCard(submitObj);
+  addCardModal.classList.remove("modal_open");
+  addCardForm.reset()
+  hidden(addCardModal);
+})
 const initialCards = [
   {
     name: "Yosemite Valley",
