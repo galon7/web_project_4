@@ -3,13 +3,13 @@ const addBtn = document.querySelector(".profile__add-button");
 
 const editProfileModal = document.querySelector(".modal_type_edit-profile");
 const addCardModal = document.querySelector(".modal_type_add-card");
-const imageModal = document.querySelector(".modal_image");
+const imgModal = document.querySelector(".modal_img");
 
 const modalTitle = document.querySelector(".modal__title");
 
 const editCloseBtn = editProfileModal.querySelector(".modal__close");
 const addCloseBtn = addCardModal.querySelector(".modal__close");
-const imageCloseBtn = imageModal.querySelector(".modal__close");
+const imageCloseBtn = imgModal.querySelector(".modal__close");
 
 const addCardForm = addCardModal.querySelector(".modal__form");
 const editProfileForm = editProfileModal.querySelector(".modal__form");
@@ -64,7 +64,7 @@ addCloseBtn.addEventListener("click", function() {
 })
 
 imageCloseBtn.addEventListener("click", function() {
-  closeModalWindow(imageModal);
+  closeModalWindow(imgModal);
 })
 
 function addCard(item) {
@@ -72,8 +72,10 @@ function addCard(item) {
   const likeBtn = element.querySelector(".elements__like-button");
   const deleteBtn = element.querySelector(".elements__delete-button");
   const image = element.querySelector(".elements__img");
-  element.querySelector(".elements__img").src = item.link;
-  element.querySelector(".elements__img").alt = item.alt;
+  const imageModal = imgModal.querySelector(".modal__image");
+
+  image.src = item.link;
+  image.alt = item.alt;
   element.querySelector(".elements__title").textContent = item.name;
 
   likeBtn.addEventListener("click", function() {
@@ -81,15 +83,15 @@ function addCard(item) {
   })
 
   deleteBtn.addEventListener("click", function() {
-    element.value = null;
     element.remove();
+    element = null;
   })
 
   image.addEventListener("click", function() {
-    openModalWindow(imageModal);
-    imageModal.querySelector(".modal__image").src = item.link;
-    imageModal.querySelector(".modal__image").alt = item.alt;
-    imageModal.querySelector(".modal__caption").textContent = item.name;
+    openModalWindow(imgModal);
+    imageModal.src = item.link;
+    imageModal.alt = item.alt;
+    imgModal.querySelector(".modal__caption").textContent = item.name;
   })
 
   elements.prepend(element);
@@ -138,7 +140,5 @@ const initialCards = [
   }
 ];
 
-for (let i = initialCards.length - 1; i >= 0 ; i--) {
-    addCard(initialCards[i]);
-  }
+initialCards.forEach(addCard);
 
