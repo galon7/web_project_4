@@ -52,7 +52,7 @@ function closeEscOrClickOutside(window) {
   });
 
   var ignoreClickElement = window.firstElementChild;
-  window.addEventListener("click", function (evt) {
+  window.addEventListener("mousedown", function (evt) {
     var isClickInside = ignoreClickElement.contains(evt.target);
     if (!isClickInside) {
       closeModalWindow(window);
@@ -71,6 +71,10 @@ function openModalEdit() {
 }
 
 function openModalAdd() {
+  addCardModal
+    .querySelector(".modal__submit-button")
+    .classList.add("modal__submit-button_disabled");
+  console.log(addCardModal);
   openModalWindow(addCardModal);
   title.value = profileTitle.textContent;
   subtitle.value = profileSubtitle.textContent;
