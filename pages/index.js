@@ -74,7 +74,6 @@ function openModalAdd() {
   addCardModal
     .querySelector(".modal__submit-button")
     .classList.add("modal__submit-button_disabled");
-  console.log(addCardModal);
   openModalWindow(addCardModal);
   title.value = profileTitle.textContent;
   subtitle.value = profileSubtitle.textContent;
@@ -88,7 +87,6 @@ addBtn.addEventListener("click", openModalAdd);
 editCloseBtn.addEventListener("click", function () {
   closeModalWindow(editProfileModal);
   editProfileForm.reset();
-  console.log(editProfileForm);
 });
 
 addCloseBtn.addEventListener("click", function () {
