@@ -55,19 +55,25 @@
             <input
               type="text"
               class="modal__input modal__input_field_name"
+              id="name-input"
               placeholder="Full name"
               name="Full name"
-              maxlength="15"
+              minlength="2"
+              maxlength="40"
               required
             />
+            <span id="name-input-error" class="modal__error-text"></span>
             <input
               type="text"
               class="modal__input modal__input_field_profession"
+              id="profession-input"
               placeholder="Profession"
               name="Profession"
-              maxlength="20"
+              minlength="2"
+              maxlength="200"
               required
             />
+            <span id="profession-input-error" class="modal__error-text"></span>
             <button type="submit" class="modal__submit-button">Save</button>
           </form>
         </div>
@@ -81,18 +87,23 @@
             <input
               type="text"
               class="modal__input modal__input_field_title"
+              id="card-title-input"
               placeholder="Title"
               name="Title"
-              maxlength="15"
+              minlength="1"
+              maxlength="30"
               required
             />
+            <span id="card-title-input-error" class="modal__error-text"></span>
             <input
-              type="text"
+              type="url"
               class="modal__input modal__input_field_image-link"
+              id="card-input-link"
               placeholder="Image link"
               name="Image link"
               required
             />
+            <span id="card-input-link-error" class="modal__error-text"></span>
             <button type="submit" class="modal__submit-button">Create</button>
           </form>
         </div>
@@ -109,5 +120,6 @@
       </div>
     </div>
     <script src="pages/index.js"></script>
+    <script src="pages/validation.js"></script>
   </body>
 </html>

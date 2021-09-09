@@ -22,50 +22,79 @@ const cardLink = document.querySelector(".modal__input_field_image-link");
 
 const profileTitle = document.querySelector(".profile__title");
 const profileSubtitle = document.querySelector(".profile__subtitle");
-const elementsTemplate = document.querySelector("#elements-item").content.querySelector(".elements__item");
+const elementsTemplate = document
+  .querySelector("#elements-item")
+  .content.querySelector(".elements__item");
 const elements = document.querySelector(".elements");
 
 function openModalWindow(modalWindow) {
-  modalWindow.classList.add("modal_open")
+  modalWindow.classList.add("modal_open");
 }
 
 function closeModalWindow(modalWindow) {
-  modalWindow.classList.remove("modal_open")
+  modalWindow.classList.remove("modal_open");
 }
 
 function toggleLikeBtn(element) {
   element.classList.toggle("elements__like-button_pressed");
 }
 
+function closeEscOrClickOutside(window) {
+  let currentForm = window.querySelector(".modal__form");
+
+  document.addEventListener("keydown", function (evt) {
+    if (evt.key === "Escape") {
+      closeModalWindow(window);
+      if (currentForm) {
+        currentForm.reset();
+      }
+    }
+  });
+
+  var ignoreClickElement = window.firstElementChild;
+  window.addEventListener("click", function (evt) {
+    var isClickInside = ignoreClickElement.contains(evt.target);
+    if (!isClickInside) {
+      closeModalWindow(window);
+      if (currentForm) {
+        currentForm.reset();
+      }
+    }
+  });
+}
+
 function openModalEdit() {
   openModalWindow(editProfileModal);
   title.value = profileTitle.textContent;
   subtitle.value = profileSubtitle.textContent;
+  closeEscOrClickOutside(editProfileModal);
 }
 
 function openModalAdd() {
   openModalWindow(addCardModal);
   title.value = profileTitle.textContent;
   subtitle.value = profileSubtitle.textContent;
+  closeEscOrClickOutside(addCardModal);
 }
 
 editBtn.addEventListener("click", openModalEdit);
 
 addBtn.addEventListener("click", openModalAdd);
 
-editCloseBtn.addEventListener("click", function() {
+editCloseBtn.addEventListener("click", function () {
   closeModalWindow(editProfileModal);
-  editProfileForm.reset()
-})
+  editProfileForm.reset();
+  console.log(editProfileForm);
+});
 
-addCloseBtn.addEventListener("click", function() {
+addCloseBtn.addEventListener("click", function () {
   closeModalWindow(addCardModal);
-  addCardForm.reset()
-})
+  addCardForm.reset();
+});
 
-imageCloseBtn.addEventListener("click", function() {
+imageCloseBtn.addEventListener("click", function () {
   closeModalWindow(imgModal);
-})
+});
 
 function addCard(item) {
   const element = elementsTemplate.cloneNode(true);
@@ -78,67 +107,67 @@ function addCard(item) {
   image.alt = item.alt;
   element.querySelector(".elements__title").textContent = item.name;
 
-  likeBtn.addEventListener("click", function() {
+  likeBtn.addEventListener("click", function () {
     toggleLikeBtn(likeBtn);
-  })
+  });
 
-  deleteBtn.addEventListener("click", function() {
+  deleteBtn.addEventListener("click", function () {
     element.remove();
     element = null;
-  })
+  });
 
-  image.addEventListener("click", function() {
+  image.addEventListener("click", function () {
     openModalWindow(imgModal);
     imageModal.src = item.link;
     imageModal.alt = item.alt;
     imgModal.querySelector(".modal__caption").textContent = item.name;
-  })
+    closeEscOrClickOutside(imgModal);
+  });
 
   elements.prepend(element);
 }
 
-editProfileForm.addEventListener("submit", function(e) {
+editProfileForm.addEventListener("submit", function (e) {
   e.preventDefault();
   profileTitle.textContent = title.value;
   profileSubtitle.textContent = subtitle.value;
   closeModalWindow(editProfileModal);
-  editProfileForm.reset()
-})
+  editProfileForm.reset();
+});
 
-addCardForm.addEventListener("submit", function(e) {
+addCardForm.addEventListener("submit", function (e) {
   e.preventDefault();
-  const submitObj = { name: cardTitle.value, link: cardLink.value}
+  const submitObj = { name: cardTitle.value, link: cardLink.value };
   addCard(submitObj);
   closeModalWindow(addCardModal);
-  addCardForm.reset()
-})
+  addCardForm.reset();
+});
 
 const initialCards = [
   {
     name: "Yosemite Valley",
-    link: "https://code.s3.yandex.net/web-code/yosemite.jpg"
+    link: "https://code.s3.yandex.net/web-code/yosemite.jpg",
   },
   {
     name: "Lake Louise",
-    link: "https://code.s3.yandex.net/web-code/lake-louise.jpg"
+    link: "https://code.s3.yandex.net/web-code/lake-louise.jpg",
   },
   {
     name: "Bald Mountains",
-    link: "https://code.s3.yandex.net/web-code/bald-mountains.jpg"
+    link: "https://code.s3.yandex.net/web-code/bald-mountains.jpg",
   },
   {
     name: "Latemar",
-    link: "https://code.s3.yandex.net/web-code/latemar.jpg"
+    link: "https://code.s3.yandex.net/web-code/latemar.jpg",
   },
   {
     name: "Vanoise National Park",
-    link: "https://code.s3.yandex.net/web-code/vanoise.jpg"
+    link: "https://code.s3.yandex.net/web-code/vanoise.jpg",
   },
   {
     name: "Lago di Braies",
-    link: "https://code.s3.yandex.net/web-code/lago.jpg"
-  }
+    link: "https://code.s3.yandex.net/web-code/lago.jpg",
+  },
 ];
 
 initialCards.forEach(addCard);
-

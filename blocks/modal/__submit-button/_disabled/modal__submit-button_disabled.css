@@ -1,0 +1,6 @@
+.modal__submit-button_disabled {
+  opacity: 0.2;
+  color: black;
+  background-color: white;
+  border: black 1px solid;
+}
