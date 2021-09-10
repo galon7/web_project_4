@@ -30,48 +30,39 @@ const elements = document.querySelector(".elements");
 
 function openModalWindow(modalWindow) {
   modalWindow.classList.add("modal_open");
-  closeOnEscape(modalWindow, true);
-  closeOnClickOutside(modalWindow, true);
+  document.addEventListener("keydown", closeOnEsc);
+  modalWindow.addEventListener("mousedown", closeOnClickOutside);
 }
 
 function closeModalWindow(modalWindow) {
   modalWindow.classList.remove("modal_open");
-  closeOnEscape(modalWindow, false);
-  closeOnClickOutside(modalWindow, false);
+  document.removeEventListener("keydown", closeOnEsc);
+  modalWindow.removeEventListener("mousedown", closeOnClickOutside);
 }
 
 function toggleLikeBtn(element) {
   element.classList.toggle("elements__like-button_pressed");
 }
 
-function closeOnEscape(window, bool) {
-  let currentForm = window.querySelector(".modal__form");
-  function closeModal(evt) {
-    if (evt.key === "Escape") {
-      closeModalWindow(window);
-      if (currentForm) {
-        currentForm.reset();
-      }
-    }
+function closeOnEsc(evt) {
+  if (evt.key === "Escape") {
+    const openModal = document.querySelector(".modal_open");
+    closeModalWindow(openModal);
+    if (openModal.querySelector(".modal__form"))
+      openModal.querySelector(".modal__form").reset();
   }
-  if (bool) document.addEventListener("keydown", closeModal);
-  else document.removeEventListener("keydown", closeModal);
 }
 
-function closeOnClickOutside(window, bool) {
-  let currentForm = window.querySelector(".modal__form");
-  let ignoreClickElement = window.firstElementChild;
-  function closeModal(evt) {
-    let isClickInside = ignoreClickElement.contains(evt.target);
-    if (!isClickInside) {
-      closeModalWindow(window);
-      if (currentForm) {
-        currentForm.reset();
-      }
-    }
+function closeOnClickOutside(evt) {
+  const openModal = document.querySelector(".modal_open");
+  const ignoreClickElement = openModal.firstElementChild;
+  const isClickInside = ignoreClickElement.contains(evt.target);
+
+  if (!isClickInside) {
+    closeModalWindow(openModal);
+    if (openModal.querySelector(".modal__form"))
+      openModal.querySelector(".modal__form").reset();
   }
-  if (bool) window.addEventListener("mousedown", closeModal);
-  else window.removeEventListener("mousedown", closeModal);
 }
 
 function openModalEdit() {
