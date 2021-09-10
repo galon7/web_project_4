@@ -22,9 +22,7 @@ function checkValidity(input, settings) {
 }
 
 function toggleButtonState(inputs, button, settings) {
-  const isValid = inputs.every(function (input) {
-    return input.validity.valid;
-  });
+  const isValid = inputs.every((input) => input.validity.valid);
 
   if (isValid) {
     button.disabled = false;

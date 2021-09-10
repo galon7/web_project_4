@@ -5,6 +5,7 @@ const editProfileModal = document.querySelector(".modal_type_edit-profile");
 const addCardModal = document.querySelector(".modal_type_add-card");
 const imgModal = document.querySelector(".modal_img");
 
+const addCardBtn = addCardModal.querySelector(".modal__submit-button");
 const modalTitle = document.querySelector(".modal__title");
 
 const editCloseBtn = editProfileModal.querySelector(".modal__close");
@@ -29,55 +30,61 @@ const elements = document.querySelector(".elements");
 
 function openModalWindow(modalWindow) {
   modalWindow.classList.add("modal_open");
+  closeOnEscape(modalWindow, true);
+  closeOnClickOutside(modalWindow, true);
 }
 
 function closeModalWindow(modalWindow) {
   modalWindow.classList.remove("modal_open");
+  closeOnEscape(modalWindow, false);
+  closeOnClickOutside(modalWindow, false);
 }
 
 function toggleLikeBtn(element) {
   element.classList.toggle("elements__like-button_pressed");
 }
 
-function closeEscOrClickOutside(window) {
+function closeOnEscape(window, bool) {
   let currentForm = window.querySelector(".modal__form");
-
-  document.addEventListener("keydown", function (evt) {
+  function closeModal(evt) {
     if (evt.key === "Escape") {
       closeModalWindow(window);
       if (currentForm) {
         currentForm.reset();
       }
     }
-  });
+  }
+  if (bool) document.addEventListener("keydown", closeModal);
+  else document.removeEventListener("keydown", closeModal);
+}
 
-  var ignoreClickElement = window.firstElementChild;
-  window.addEventListener("mousedown", function (evt) {
-    var isClickInside = ignoreClickElement.contains(evt.target);
+function closeOnClickOutside(window, bool) {
+  let currentForm = window.querySelector(".modal__form");
+  let ignoreClickElement = window.firstElementChild;
+  function closeModal(evt) {
+    let isClickInside = ignoreClickElement.contains(evt.target);
     if (!isClickInside) {
       closeModalWindow(window);
       if (currentForm) {
         currentForm.reset();
       }
     }
-  });
+  }
+  if (bool) window.addEventListener("mousedown", closeModal);
+  else window.removeEventListener("mousedown", closeModal);
 }
 
 function openModalEdit() {
   openModalWindow(editProfileModal);
   title.value = profileTitle.textContent;
   subtitle.value = profileSubtitle.textContent;
-  closeEscOrClickOutside(editProfileModal);
 }
 
 function openModalAdd() {
-  addCardModal
-    .querySelector(".modal__submit-button")
-    .classList.add("modal__submit-button_disabled");
+  addCardBtn.classList.add("modal__submit-button_disabled");
   openModalWindow(addCardModal);
   title.value = profileTitle.textContent;
   subtitle.value = profileSubtitle.textContent;
-  closeEscOrClickOutside(addCardModal);
 }
 
 editBtn.addEventListener("click", openModalEdit);
@@ -123,7 +130,6 @@ function addCard(item) {
     imageModal.src = item.link;
     imageModal.alt = item.alt;
     imgModal.querySelector(".modal__caption").textContent = item.name;
-    closeEscOrClickOutside(imgModal);
   });
 
   elements.prepend(element);
