@@ -30,6 +30,7 @@
 @import url(../blocks/modal/__input/modal__input.css);
 @import url(../blocks/modal/__input/_field/modal__input_field_name.css);
 @import url(../blocks/modal/__input/_field/modal__input_field_profession.css);
+@import url(../blocks/modal/__input/_type/modal__input_type_error.css);
 @import url(../blocks/modal/__submit-button/modal__submit-button.css);
 @import url(../blocks/modal/__submit-button/_disabled/modal__submit-button_disabled.css);
 @import url(../blocks/modal/__image/modal__image.css);
