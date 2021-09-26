@@ -1,3 +1,15 @@
+import { Card } from "./Card.js";
+import { FormValidator } from "./FormValidator.js";
+
+const config = {
+  formSelector: ".modal__form",
+  inputSelector: ".modal__input",
+  submitButtonSelector: ".modal__submit-button",
+  inactiveButtonClass: "modal__submit-button_disabled",
+  inputErrorClass: "modal__input_type_error",
+  errorClass: "modal__error_visible",
+};
+
 const editBtn = document.querySelector(".profile__info-edit");
 const addBtn = document.querySelector(".profile__add-button");
 
@@ -14,6 +26,11 @@ const imageCloseBtn = imgModal.querySelector(".modal__close");
 
 const addCardForm = addCardModal.querySelector(".modal__form");
 const editProfileForm = editProfileModal.querySelector(".modal__form");
+
+const addFormValidator = new FormValidator(config, addCardForm);
+addFormValidator.enableValidation();
+const editFormValidator = new FormValidator(config, editProfileForm);
+editFormValidator.enableValidation();
 
 const title = document.querySelector(".modal__input_field_name");
 const subtitle = document.querySelector(".modal__input_field_profession");
@@ -35,6 +52,10 @@ function openModalWindow(modalWindow) {
 }
 
 function closeModalWindow(modalWindow) {
+  // const inputs = [...modalWindow.querySelectorAll(config.inputSelector)];
+  // const inputErrorClass = { inputErrorClass: "modal__input_type_error" };
+  // inputs.forEach((input) => hideError(input, inputErrorClass));
+
   modalWindow.classList.remove("modal_open");
   document.removeEventListener("keydown", closeOnEsc);
   modalWindow.removeEventListener("mousedown", closeOnClickOutside);
