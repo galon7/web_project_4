@@ -20,20 +20,12 @@ export function closeOnEsc(evt) {
   if (evt.key === "Escape") {
     const openModal = document.querySelector(".modal_open");
     closeModalWindow(openModal);
-    if (openModal.querySelector(".modal__form"))
-      openModal.querySelector(".modal__form").reset();
   }
 }
 
 export function closeOnClickOutside(evt) {
-  const openModal = document.querySelector(".modal_open");
-  const ignoreClickElement = openModal.firstElementChild;
-  const isClickInside = ignoreClickElement.contains(evt.target);
-
-  if (!isClickInside) {
-    closeModalWindow(openModal);
-    if (openModal.querySelector(".modal__form"))
-      openModal.querySelector(".modal__form").reset();
+  if (evt.target === evt.currentTarget) {
+    closeModalWindow(evt.currentTarget);
   }
 }
 

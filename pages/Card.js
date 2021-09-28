@@ -1,29 +1,27 @@
 import { imgModal, imageModal, openModalWindow } from "./utils.js";
 
 export class Card {
-  constructor(item) {
+  constructor(item, cardSelector) {
     this._text = item.name;
     this._link = item.link;
-    this._cardTemplate = document
-      .querySelector("#elements-item")
-      .content.querySelector(".elements__item");
+    this._cardTemplate = cardSelector;
   }
 
-  _toggleLikeBtn(element) {
-    element.classList.toggle("elements__like-button_pressed");
+  _toggleLikeBtn() {
+    this._likeBtn.classList.toggle("elements__like-button_pressed");
   }
 
-  _addEventListeners(likeBtn, deleteBtn, image) {
-    likeBtn.addEventListener("click", () => {
-      this._toggleLikeBtn(likeBtn);
+  _addEventListeners() {
+    this._likeBtn.addEventListener("click", () => {
+      this._toggleLikeBtn(this._likeBtn);
     });
 
-    deleteBtn.addEventListener("click", () => {
+    this._deleteBtn.addEventListener("click", () => {
       this._element.remove();
       this._element = null;
     });
 
-    image.addEventListener("click", () => {
+    this._image.addEventListener("click", () => {
       openModalWindow(imgModal);
       imageModal.src = this._link;
       imgModal.querySelector(".modal__caption").textContent = this._text;
@@ -33,14 +31,14 @@ export class Card {
   returnCard() {
     this._element = this._cardTemplate.cloneNode(true);
 
-    const likeBtn = this._element.querySelector(".elements__like-button");
-    const deleteBtn = this._element.querySelector(".elements__delete-button");
-    const image = this._element.querySelector(".elements__img");
+    this._likeBtn = this._element.querySelector(".elements__like-button");
+    this._deleteBtn = this._element.querySelector(".elements__delete-button");
+    this._image = this._element.querySelector(".elements__img");
 
-    image.src = this._link;
+    this._image.src = this._link;
     this._element.querySelector(".elements__title").textContent = this._text;
 
-    this._addEventListeners(likeBtn, deleteBtn, image);
+    this._addEventListeners();
 
     return this._element;
   }

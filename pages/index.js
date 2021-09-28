@@ -49,7 +49,6 @@ function openModalEdit() {
 }
 
 function openModalAdd() {
-  addCardBtn.classList.add("modal__submit-button_disabled");
   openModalWindow(addCardModal);
   title.value = profileTitle.textContent;
   subtitle.value = profileSubtitle.textContent;
@@ -61,12 +60,10 @@ addBtn.addEventListener("click", openModalAdd);
 
 editCloseBtn.addEventListener("click", function () {
   closeModalWindow(editProfileModal);
-  editProfileForm.reset();
 });
 
 addCloseBtn.addEventListener("click", function () {
   closeModalWindow(addCardModal);
-  addCardForm.reset();
 });
 
 imageCloseBtn.addEventListener("click", function () {
@@ -78,7 +75,6 @@ editProfileForm.addEventListener("submit", function (e) {
   profileTitle.textContent = title.value;
   profileSubtitle.textContent = subtitle.value;
   closeModalWindow(editProfileModal);
-  editProfileForm.reset();
 });
 
 addCardForm.addEventListener("submit", function (e) {
@@ -89,8 +85,12 @@ addCardForm.addEventListener("submit", function (e) {
   addCardForm.reset();
 });
 
+function createCard(item) {
+  return new Card(item, elementsTemplate);
+}
+
 function addCard(item) {
-  const cardElement = new Card(item);
+  const cardElement = createCard(item);
   elements.prepend(cardElement.returnCard());
 }
 
