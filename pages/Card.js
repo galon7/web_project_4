@@ -36,6 +36,7 @@ export class Card {
     this._image = this._element.querySelector(".elements__img");
 
     this._image.src = this._link;
+    this._image.alt = this._text;
     this._element.querySelector(".elements__title").textContent = this._text;
 
     this._addEventListeners();

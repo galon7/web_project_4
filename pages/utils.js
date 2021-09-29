@@ -34,11 +34,3 @@ export function closeModalWindow(modalWindow) {
   document.removeEventListener("keydown", closeOnEsc);
   modalWindow.removeEventListener("mousedown", closeOnClickOutside);
 }
-
-/*clear errors from project 6
-
-  const inputs = [...modalWindow.querySelectorAll(config.inputSelector)];
-  const inputErrorClass = { inputErrorClass: "modal__input_type_error" };
-  inputs.forEach((input) => hideError(input, inputErrorClass));
-
-*/

@@ -46,12 +46,13 @@ function openModalEdit() {
   openModalWindow(editProfileModal);
   title.value = profileTitle.textContent;
   subtitle.value = profileSubtitle.textContent;
+  editFormValidator.resetValidation();
 }
 
 function openModalAdd() {
   openModalWindow(addCardModal);
-  title.value = profileTitle.textContent;
-  subtitle.value = profileSubtitle.textContent;
+  addCardForm.reset();
+  addFormValidator.resetValidation();
 }
 
 editBtn.addEventListener("click", openModalEdit);

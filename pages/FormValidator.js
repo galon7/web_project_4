@@ -39,7 +39,7 @@ export class FormValidator {
     input.classList.remove(this._settings.inputErrorClass);
   }
 
-  _resetValidation() {
+  resetValidation() {
     this._toggleButtonState();
 
     this._inputs.forEach((inputElement) => {
@@ -66,6 +66,6 @@ export class FormValidator {
       });
     });
 
-    this._resetValidation();
+    this.resetValidation();
   }
 }
