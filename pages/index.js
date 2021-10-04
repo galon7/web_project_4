@@ -1,24 +1,15 @@
 import { Card } from "./Card.js";
 import { FormValidator } from "./FormValidator.js";
-import {
-  config,
-  imgModal,
-  openModalWindow,
-  closeModalWindow,
-} from "./utils.js";
+import { Section } from "./Section.js";
+import { PopupWithImage } from "./PopupWithImage.js";
+import { PopupWithForm } from "./PopupWithForm.js";
+import { config, elementsTemplate, elements, initialCards } from "./utils.js";
 
 const editBtn = document.querySelector(".profile__info-edit");
 const addBtn = document.querySelector(".profile__add-button");
 
 const editProfileModal = document.querySelector(".modal_type_edit-profile");
 const addCardModal = document.querySelector(".modal_type_add-card");
-
-const addCardBtn = addCardModal.querySelector(".modal__submit-button");
-const modalTitle = document.querySelector(".modal__title");
-
-const editCloseBtn = editProfileModal.querySelector(".modal__close");
-const addCloseBtn = addCardModal.querySelector(".modal__close");
-const imageCloseBtn = imgModal.querySelector(".modal__close");
 
 const addCardForm = addCardModal.querySelector(".modal__form");
 const editProfileForm = editProfileModal.querySelector(".modal__form");
@@ -32,94 +23,86 @@ const cardLink = document.querySelector(".modal__input_field_image-link");
 const profileTitle = document.querySelector(".profile__title");
 const profileSubtitle = document.querySelector(".profile__subtitle");
 
-const elements = document.querySelector(".elements");
-const elementsTemplate = document
-  .querySelector("#elements-item")
-  .content.querySelector(".elements__item");
-
 const addFormValidator = new FormValidator(config, addCardForm);
 addFormValidator.enableValidation();
 const editFormValidator = new FormValidator(config, editProfileForm);
 editFormValidator.enableValidation();
 
-function openModalEdit() {
-  openModalWindow(editProfileModal);
-  title.value = profileTitle.textContent;
-  subtitle.value = profileSubtitle.textContent;
+const imageModal = new PopupWithImage(".modal_img");
+imageModal.setEventListeners();
+
+// function openModalEdit() {
+//   openModalWindow(editProfileModal);
+//   title.value = profileTitle.textContent;
+//   subtitle.value = profileSubtitle.textContent;
+//   editFormValidator.resetValidation();
+// }
+
+// function openModalAdd() {
+//   openModalWindow(addCardModal);
+//   addCardForm.reset();
+//   addFormValidator.resetValidation();
+// }
+
+editBtn.addEventListener("click", () => {
+  const newEditProfileModal = new PopupWithForm(
+    ".modal_type_edit-profile",
+    () => {
+      profileTitle.textContent = title.value;
+      profileSubtitle.textContent = subtitle.value;
+      newEditProfileModal.close();
+    }
+  );
+  newEditProfileModal.setEventListeners();
+  newEditProfileModal.open();
   editFormValidator.resetValidation();
-}
+});
 
-function openModalAdd() {
-  openModalWindow(addCardModal);
-  addCardForm.reset();
+addBtn.addEventListener("click", () => {
+  const newAddCardModal = new PopupWithForm(".modal_type_add-card", (data) => {
+    const submitObj = { name: cardTitle.value, link: cardLink.value };
+    const newCard = new Card(submitObj, elementsTemplate, () => {
+      imageModal.open(submitObj);
+    });
+    const cardElement = newCard.returnCard();
+    cardList.addItem(cardElement);
+    newAddCardModal.close();
+  });
+  newAddCardModal.setEventListeners();
+  newAddCardModal.open();
   addFormValidator.resetValidation();
-}
-
-editBtn.addEventListener("click", openModalEdit);
-
-addBtn.addEventListener("click", openModalAdd);
-
-editCloseBtn.addEventListener("click", function () {
-  closeModalWindow(editProfileModal);
 });
 
-addCloseBtn.addEventListener("click", function () {
-  closeModalWindow(addCardModal);
-});
+// editProfileForm.addEventListener("submit", function (e) {
+//   e.preventDefault();
+//   profileTitle.textContent = title.value;
+//   profileSubtitle.textContent = subtitle.value;
+//   closeModalWindow(editProfileModal);
+// });
 
-imageCloseBtn.addEventListener("click", function () {
-  closeModalWindow(imgModal);
-});
+// addCardForm.addEventListener("submit", function (e) {
+//   e.preventDefault();
+//   const submitObj = { name: cardTitle.value, link: cardLink.value };
+//   const newCard = new Card(submitObj, elementsTemplate, () => {
+//     imageModal.open(submitObj);
+//   });
+//   const cardElement = newCard.returnCard();
+//   cardList.addItem(cardElement);
+//   closeModalWindow(addCardModal);
+//   addCardForm.reset();
+// });
 
-editProfileForm.addEventListener("submit", function (e) {
-  e.preventDefault();
-  profileTitle.textContent = title.value;
-  profileSubtitle.textContent = subtitle.value;
-  closeModalWindow(editProfileModal);
-});
-
-addCardForm.addEventListener("submit", function (e) {
-  e.preventDefault();
-  const submitObj = { name: cardTitle.value, link: cardLink.value };
-  addCard(submitObj);
-  closeModalWindow(addCardModal);
-  addCardForm.reset();
-});
-
-function createCard(item) {
-  return new Card(item, elementsTemplate);
-}
-
-function addCard(item) {
-  const cardElement = createCard(item);
-  elements.prepend(cardElement.returnCard());
-}
-
-const initialCards = [
+const cardList = new Section(
   {
-    name: "Yosemite Valley",
-    link: "https://code.s3.yandex.net/web-code/yosemite.jpg",
+    items: initialCards,
+    renderer: (item) => {
+      const card = new Card(item, elementsTemplate, () => {
+        imageModal.open(item);
+      });
+      const cardElement = card.returnCard();
+      cardList.addItem(cardElement);
+    },
   },
-  {
-    name: "Lake Louise",
-    link: "https://code.s3.yandex.net/web-code/lake-louise.jpg",
-  },
-  {
-    name: "Bald Mountains",
-    link: "https://code.s3.yandex.net/web-code/bald-mountains.jpg",
-  },
-  {
-    name: "Latemar",
-    link: "https://code.s3.yandex.net/web-code/latemar.jpg",
-  },
-  {
-    name: "Vanoise National Park",
-    link: "https://code.s3.yandex.net/web-code/vanoise.jpg",
-  },
-  {
-    name: "Lago di Braies",
-    link: "https://code.s3.yandex.net/web-code/lago.jpg",
-  },
-];
-
-initialCards.forEach(addCard);
+  elements
+);
+cardList.renderer();

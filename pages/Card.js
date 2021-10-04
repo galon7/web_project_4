@@ -1,10 +1,9 @@
-import { imgModal, imageModal, openModalWindow } from "./utils.js";
-
 export class Card {
-  constructor(item, cardSelector) {
+  constructor(item, cardSelector, handleCardClick) {
     this._text = item.name;
     this._link = item.link;
     this._cardTemplate = cardSelector;
+    this._handleCardClick = handleCardClick;
   }
 
   _toggleLikeBtn() {
@@ -22,9 +21,7 @@ export class Card {
     });
 
     this._image.addEventListener("click", () => {
-      openModalWindow(imgModal);
-      imageModal.src = this._link;
-      imgModal.querySelector(".modal__caption").textContent = this._text;
+      this._handleCardClick();
     });
   }
 
