@@ -3,7 +3,8 @@ import { FormValidator } from "./FormValidator.js";
 import { Section } from "./Section.js";
 import { PopupWithImage } from "./PopupWithImage.js";
 import { PopupWithForm } from "./PopupWithForm.js";
-import { config, elementsTemplate, elements, initialCards } from "./utils.js";
+import { UserInfo } from "./UserInfo.js";
+import { config, initialCards } from "./utils.js";
 
 const editBtn = document.querySelector(".profile__info-edit");
 const addBtn = document.querySelector(".profile__add-button");
@@ -14,14 +15,24 @@ const addCardModal = document.querySelector(".modal_type_add-card");
 const addCardForm = addCardModal.querySelector(".modal__form");
 const editProfileForm = editProfileModal.querySelector(".modal__form");
 
-const title = document.querySelector(".modal__input_field_name");
-const subtitle = document.querySelector(".modal__input_field_profession");
-
 const cardTitle = document.querySelector(".modal__input_field_title");
 const cardLink = document.querySelector(".modal__input_field_image-link");
 
 const profileTitle = document.querySelector(".profile__title");
 const profileSubtitle = document.querySelector(".profile__subtitle");
+
+const elements = document.querySelector(".elements");
+const elementsTemplate = document
+  .querySelector("#elements-item")
+  .content.querySelector(".elements__item");
+
+//--------------------------------------------------------------------------
+
+const user = {
+  name: profileTitle,
+  job: profileSubtitle,
+};
+export const userInfo = new UserInfo(user);
 
 const addFormValidator = new FormValidator(config, addCardForm);
 addFormValidator.enableValidation();
@@ -45,8 +56,7 @@ newAddCardModal.setEventListeners();
 const newEditProfileModal = new PopupWithForm(
   ".modal_type_edit-profile",
   () => {
-    profileTitle.textContent = title.value;
-    profileSubtitle.textContent = subtitle.value;
+    userInfo.setUserInfo();
     newEditProfileModal.close();
   }
 );
@@ -76,16 +86,3 @@ const cardList = new Section(
   elements
 );
 cardList.renderer();
-
-// function openModalEdit() {
-//   openModalWindow(editProfileModal);
-//   title.value = profileTitle.textContent;
-//   subtitle.value = profileSubtitle.textContent;
-//   editFormValidator.resetValidation();
-// }
-
-// function openModalAdd() {
-//   openModalWindow(addCardModal);
-//   addCardForm.reset();
-//   addFormValidator.resetValidation();
-// }

@@ -1,10 +1,3 @@
-export const imgModal = document.querySelector(".modal_img");
-export const imageModal = imgModal.querySelector(".modal__image");
-export const elements = document.querySelector(".elements");
-export const elementsTemplate = document
-  .querySelector("#elements-item")
-  .content.querySelector(".elements__item");
-
 export const config = {
   formSelector: ".modal__form",
   inputSelector: ".modal__input",

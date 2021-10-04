@@ -1,4 +1,5 @@
 import { Popup } from "./Popup.js";
+import { userInfo } from "./index.js";
 
 export class PopupWithForm extends Popup {
   constructor(popupSelector, formSubmission) {
@@ -6,7 +7,13 @@ export class PopupWithForm extends Popup {
     this._formSubmission = formSubmission;
   }
 
-  _getInputValues() {}
+  _getInputValues() {
+    if (this._popup.className === "modal modal_type_edit-profile") {
+      const data = userInfo.getUserInfo();
+      document.querySelector(".modal__input_field_name").value = data.name;
+      document.querySelector(".modal__input_field_profession").value = data.job;
+    }
+  }
 
   setEventListeners() {
     super.setEventListeners();
@@ -23,7 +30,8 @@ export class PopupWithForm extends Popup {
     super.close();
   };
 
-  open() {
+  open = () => {
+    this._getInputValues();
     super.open();
-  }
+  };
 }
