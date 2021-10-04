@@ -18,12 +18,12 @@ export class PopupWithForm extends Popup {
       });
   }
 
-  close() {
+  close = () => {
+    this._popup.querySelector(".modal__form").reset();
     super.close();
-  }
+  };
 
   open() {
     super.open();
-    this._popup.querySelector(".modal__form").reset();
   }
 }
