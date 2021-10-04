@@ -42,16 +42,17 @@ const newAddCardModal = new PopupWithForm(".modal_type_add-card", (data) => {
 });
 newAddCardModal.setEventListeners();
 
+const newEditProfileModal = new PopupWithForm(
+  ".modal_type_edit-profile",
+  () => {
+    profileTitle.textContent = title.value;
+    profileSubtitle.textContent = subtitle.value;
+    newEditProfileModal.close();
+  }
+);
+newEditProfileModal.setEventListeners();
+
 editBtn.addEventListener("click", () => {
-  const newEditProfileModal = new PopupWithForm(
-    ".modal_type_edit-profile",
-    () => {
-      profileTitle.textContent = title.value;
-      profileSubtitle.textContent = subtitle.value;
-      newEditProfileModal.close();
-    }
-  );
-  newEditProfileModal.setEventListeners();
   newEditProfileModal.open();
   editFormValidator.resetValidation();
 });
