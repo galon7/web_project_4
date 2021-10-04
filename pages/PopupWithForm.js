@@ -20,10 +20,10 @@ export class PopupWithForm extends Popup {
 
   close() {
     super.close();
-    // this._popup.querySelector(".modal__form").reset();
   }
 
   open() {
     super.open();
+    this._popup.querySelector(".modal__form").reset();
   }
 }
