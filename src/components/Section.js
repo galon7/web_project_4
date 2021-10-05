@@ -5,8 +5,8 @@ export class Section {
     this._cardSelector = cardSelector;
   }
 
-  renderer() {
-    this._items.forEach((item) => this._renderer(item));
+  render() {
+    this._items.forEach(this._renderer);
   }
 
   addItem(element) {

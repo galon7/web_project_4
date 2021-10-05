@@ -1,11 +1,11 @@
-import { Card } from "./Card.js";
-import { FormValidator } from "./FormValidator.js";
-import { Section } from "./Section.js";
-import { PopupWithImage } from "./PopupWithImage.js";
-import { PopupWithForm } from "./PopupWithForm.js";
-import { UserInfo } from "./UserInfo.js";
-import { config, initialCards } from "./utils.js";
-import "./pages/index.css";
+import { Card } from "../components/Card.js";
+import { FormValidator } from "../components/FormValidator.js";
+import { Section } from "../components/Section.js";
+import { PopupWithImage } from "../components/PopupWithImage.js";
+import { PopupWithForm } from "../components/PopupWithForm.js";
+import { UserInfo } from "../components/UserInfo.js";
+import { config, initialCards } from "../components/utils.js";
+import "./index.css";
 
 const editBtn = document.querySelector(".profile__info-edit");
 const addBtn = document.querySelector(".profile__add-button");
@@ -23,11 +23,15 @@ const profileTitle = document.querySelector(".profile__title");
 const profileSubtitle = document.querySelector(".profile__subtitle");
 
 const elements = document.querySelector(".elements");
-const elementsTemplate = document
-  .querySelector("#elements-item")
-  .content.querySelector(".elements__item");
 
 //--------------------------------------------------------------------------
+function addCard(item) {
+  const newCard = new Card(item, ".elements__item", () => {
+    imageModal.open(item);
+  });
+  const cardElement = newCard.createCard();
+  cardList.addItem(cardElement);
+}
 
 const user = {
   name: profileTitle,
@@ -41,18 +45,12 @@ const editFormValidator = new FormValidator(config, editProfileForm);
 editFormValidator.enableValidation();
 
 const imageModal = new PopupWithImage(".modal_img");
-imageModal.setEventListeners();
 
-const newAddCardModal = new PopupWithForm(".modal_type_add-card", (data) => {
+const newAddCardModal = new PopupWithForm(".modal_type_add-card", () => {
   const submitObj = { name: cardTitle.value, link: cardLink.value };
-  const newCard = new Card(submitObj, elementsTemplate, () => {
-    imageModal.open(submitObj);
-  });
-  const cardElement = newCard.returnCard();
-  cardList.addItem(cardElement);
+  addCard(submitObj);
   newAddCardModal.close();
 });
-newAddCardModal.setEventListeners();
 
 const newEditProfileModal = new PopupWithForm(
   ".modal_type_edit-profile",
@@ -61,7 +59,6 @@ const newEditProfileModal = new PopupWithForm(
     newEditProfileModal.close();
   }
 );
-newEditProfileModal.setEventListeners();
 
 editBtn.addEventListener("click", () => {
   newEditProfileModal.open();
@@ -76,14 +73,8 @@ addBtn.addEventListener("click", () => {
 const cardList = new Section(
   {
     items: initialCards,
-    renderer: (item) => {
-      const card = new Card(item, elementsTemplate, () => {
-        imageModal.open(item);
-      });
-      const cardElement = card.returnCard();
-      cardList.addItem(cardElement);
-    },
+    renderer: (item) => addCard(item),
   },
   elements
 );
-cardList.renderer();
+cardList.render();

@@ -19,7 +19,7 @@ export class FormValidator {
       this._button.disabled = false;
       this._button.classList.remove(this._settings.inactiveButtonClass);
     } else {
-      this._button.disabled = "disabled";
+      this._button.disabled = true;
       this._button.classList.add(this._settings.inactiveButtonClass);
     }
   }

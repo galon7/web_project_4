@@ -2,7 +2,10 @@ export class Card {
   constructor(item, cardSelector, handleCardClick) {
     this._text = item.name;
     this._link = item.link;
-    this._cardTemplate = cardSelector;
+    this._alt = item.name;
+    this._cardTemplate = document
+      .querySelector("#elements-item")
+      .content.querySelector(cardSelector);
     this._handleCardClick = handleCardClick;
   }
 
@@ -25,7 +28,7 @@ export class Card {
     });
   }
 
-  returnCard() {
+  createCard() {
     this._element = this._cardTemplate.cloneNode(true);
 
     this._likeBtn = this._element.querySelector(".elements__like-button");
@@ -33,7 +36,7 @@ export class Card {
     this._image = this._element.querySelector(".elements__img");
 
     this._image.src = this._link;
-    this._image.alt = this._text;
+    this._image.alt = this._alt;
     this._element.querySelector(".elements__title").textContent = this._text;
 
     this._addEventListeners();

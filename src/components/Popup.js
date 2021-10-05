@@ -24,10 +24,13 @@ export class Popup {
   }
 
   open() {
+    this.setEventListeners();
     this._popup.classList.add("modal_open");
   }
 
   close() {
+    document.removeEventListener("keydown", this._handleEscClose);
+    this._popup.removeEventListener("mousedown", this._closeOnClickOutside);
     this._popup.classList.remove("modal_open");
   }
 }
