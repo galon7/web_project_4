@@ -16,9 +16,9 @@ export class Popup {
   };
 
   setEventListeners() {
-    this._popup.querySelector(".modal__close").addEventListener("click", () => {
-      this.close();
-    });
+    this._popup
+      .querySelector(".modal__close")
+      .addEventListener("click", this.close);
     document.addEventListener("keydown", this._handleEscClose);
     this._popup.addEventListener("mousedown", this._closeOnClickOutside);
   }
@@ -29,6 +29,9 @@ export class Popup {
   }
 
   close() {
+    this._popup
+      .querySelector(".modal__close")
+      .removeEventListener("click", this.close);
     document.removeEventListener("keydown", this._handleEscClose);
     this._popup.removeEventListener("mousedown", this._closeOnClickOutside);
     this._popup.classList.remove("modal_open");

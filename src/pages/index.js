@@ -4,7 +4,7 @@ import { Section } from "../components/Section.js";
 import { PopupWithImage } from "../components/PopupWithImage.js";
 import { PopupWithForm } from "../components/PopupWithForm.js";
 import { UserInfo } from "../components/UserInfo.js";
-import { config, initialCards } from "../components/utils.js";
+import { config, initialCards } from "../utils/constants.js";
 import "./index.css";
 
 const editBtn = document.querySelector(".profile__info-edit");
@@ -52,8 +52,8 @@ editFormValidator.enableValidation();
 const imageModal = new PopupWithImage(".modal_img");
 
 const newAddCardModal = new PopupWithForm(".modal_type_add-card", (data) => {
-  const submitObj = { name: cardTitle.value, link: cardLink.value };
-  addCard(submitObj);
+  const submitObject = { name: cardTitle.value, link: cardLink.value };
+  addCard(submitObject);
   newAddCardModal.close();
 });
 
@@ -84,7 +84,7 @@ addBtn.addEventListener("click", () => {
 const cardList = new Section(
   {
     items: initialCards,
-    renderer: (item) => addCard(item),
+    renderer: addCard,
   },
   elements
 );
