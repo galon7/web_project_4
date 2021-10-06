@@ -1,16 +1,12 @@
 export class UserInfo {
   constructor(user) {
-    this._name = user.name;
-    this._job = user.job;
+    this._name = user.nameSelector;
+    this._job = user.jobSelector;
   }
 
-  setUserInfo() {
-    this._name.textContent = document.querySelector(
-      ".modal__input_field_name"
-    ).value;
-    this._job.textContent = document.querySelector(
-      ".modal__input_field_profession"
-    ).value;
+  setUserInfo(data) {
+    this._name.textContent = data.name;
+    this._job.textContent = data.job;
   }
 
   getUserInfo() {

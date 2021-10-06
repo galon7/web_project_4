@@ -19,6 +19,11 @@ const editProfileForm = editProfileModal.querySelector(".modal__form");
 const cardTitle = document.querySelector(".modal__input_field_title");
 const cardLink = document.querySelector(".modal__input_field_image-link");
 
+export const inputName = document.querySelector(".modal__input_field_name");
+export const inputJob = document.querySelector(
+  ".modal__input_field_profession"
+);
+
 const profileTitle = document.querySelector(".profile__title");
 const profileSubtitle = document.querySelector(".profile__subtitle");
 
@@ -34,10 +39,10 @@ function addCard(item) {
 }
 
 const user = {
-  name: profileTitle,
-  job: profileSubtitle,
+  nameSelector: profileTitle,
+  jobSelector: profileSubtitle,
 };
-export const userInfo = new UserInfo(user);
+const userInfo = new UserInfo(user);
 
 const addFormValidator = new FormValidator(config, addCardForm);
 addFormValidator.enableValidation();
@@ -46,7 +51,7 @@ editFormValidator.enableValidation();
 
 const imageModal = new PopupWithImage(".modal_img");
 
-const newAddCardModal = new PopupWithForm(".modal_type_add-card", () => {
+const newAddCardModal = new PopupWithForm(".modal_type_add-card", (data) => {
   const submitObj = { name: cardTitle.value, link: cardLink.value };
   addCard(submitObj);
   newAddCardModal.close();
@@ -54,13 +59,19 @@ const newAddCardModal = new PopupWithForm(".modal_type_add-card", () => {
 
 const newEditProfileModal = new PopupWithForm(
   ".modal_type_edit-profile",
-  () => {
-    userInfo.setUserInfo();
+  (data) => {
+    const user = { name: data.name, job: data.profession };
+    profileTitle.textContent = user.name;
+    profileSubtitle.textContent = user.job;
+    userInfo.setUserInfo(user);
     newEditProfileModal.close();
   }
 );
 
 editBtn.addEventListener("click", () => {
+  const data = userInfo.getUserInfo();
+  inputName.value = data.name;
+  inputJob.value = data.job;
   newEditProfileModal.open();
   editFormValidator.resetValidation();
 });

@@ -1,5 +1,5 @@
 import { Popup } from "./Popup.js";
-import { userInfo } from "../pages/index.js";
+import { inputName, inputJob } from "../pages/index.js";
 
 export class PopupWithForm extends Popup {
   constructor(popupSelector, handleSubmit) {
@@ -9,28 +9,31 @@ export class PopupWithForm extends Popup {
   }
 
   _getInputValues() {
-    if (this._popup.className === "modal modal_type_edit-profile") {
-      const data = userInfo.getUserInfo();
-      document.querySelector(".modal__input_field_name").value = data.name;
-      document.querySelector(".modal__input_field_profession").value = data.job;
-    }
+    const inputs = [...this._formElement.querySelectorAll(".modal__input")];
+    const inputValues = {};
+    inputs.forEach((input) => {
+      inputValues[input.name] = input.value;
+    });
+    return inputValues;
   }
+
+  _submitCallback = (e) => {
+    e.preventDefault();
+    this._handleSubmit(this._getInputValues());
+  };
 
   setEventListeners() {
     super.setEventListeners();
-    this._formElement.addEventListener("submit", (e) => {
-      e.preventDefault();
-      this._handleSubmit();
-    });
+    this._formElement.addEventListener("submit", this._submitCallback);
   }
 
   close = () => {
-    this._formElement.reset();
     super.close();
+    this._formElement.reset();
+    this._formElement.removeEventListener("submit", this._submitCallback);
   };
 
   open = () => {
-    this._getInputValues();
     super.open();
   };
 }
