@@ -5,6 +5,7 @@ import { PopupWithImage } from "../components/PopupWithImage.js";
 import { PopupWithForm } from "../components/PopupWithForm.js";
 import { UserInfo } from "../components/UserInfo.js";
 import { config, initialCards } from "../utils/constants.js";
+import { Api } from "../components/Api.js";
 import "./index.css";
 
 const editBtn = document.querySelector(".profile__info-edit");
@@ -28,6 +29,8 @@ const profileTitle = document.querySelector(".profile__title");
 const profileSubtitle = document.querySelector(".profile__subtitle");
 
 const elements = document.querySelector(".elements");
+
+let cardList;
 
 //--------------------------------------------------------------------------
 function addCard(item) {
@@ -81,11 +84,23 @@ addBtn.addEventListener("click", () => {
   addFormValidator.resetValidation();
 });
 
-const cardList = new Section(
-  {
-    items: initialCards,
-    renderer: addCard,
+const api = new Api({
+  baseUrl: "https://around.nomoreparties.co/v1/group-12",
+  headers: {
+    authorization: "e0cd9749-f008-4064-bc64-61e9ac8b0f57",
+    "Content-Type": "application/json",
   },
-  elements
-);
-cardList.render();
+});
+
+const cards = api.getInitialCards();
+
+cards.then((data) => {
+  cardList = new Section(
+    {
+      items: data,
+      renderer: addCard,
+    },
+    elements
+  );
+  cardList.render();
+});
