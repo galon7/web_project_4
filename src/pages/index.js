@@ -27,12 +27,22 @@ export const inputJob = document.querySelector(
 
 const profileTitle = document.querySelector(".profile__title");
 const profileSubtitle = document.querySelector(".profile__subtitle");
+const profileAvatar = document.querySelector(".profile__avatar");
 
 const elements = document.querySelector(".elements");
 
 let cardList;
 
 //--------------------------------------------------------------------------
+
+const api = new Api({
+  baseUrl: "https://around.nomoreparties.co/v1/group-12",
+  headers: {
+    authorization: "e0cd9749-f008-4064-bc64-61e9ac8b0f57",
+    "Content-Type": "application/json",
+  },
+});
+
 function addCard(item) {
   const newCard = new Card(item, ".elements__item", () => {
     imageModal.open(item);
@@ -41,10 +51,21 @@ function addCard(item) {
   cardList.addItem(cardElement);
 }
 
+const userInformation = api.getUserInfo();
+
+console.log(userInformation);
+userInformation.then((data) => {
+  console.log(data);
+  profileTitle.textContent = data.name;
+  profileSubtitle.textContent = data.about;
+  profileAvatar.src = data.avatar;
+});
+
 const user = {
   nameSelector: profileTitle,
   jobSelector: profileSubtitle,
 };
+
 const userInfo = new UserInfo(user);
 
 const addFormValidator = new FormValidator(config, addCardForm);
@@ -63,10 +84,11 @@ const newAddCardModal = new PopupWithForm(".modal_type_add-card", (data) => {
 const newEditProfileModal = new PopupWithForm(
   ".modal_type_edit-profile",
   (data) => {
-    const user = { name: data.name, job: data.profession };
+    const user = { name: data.name, about: data.profession };
     profileTitle.textContent = user.name;
-    profileSubtitle.textContent = user.job;
+    profileSubtitle.textContent = user.about;
     userInfo.setUserInfo(user);
+    api.editProfile(user);
     newEditProfileModal.close();
   }
 );
@@ -82,14 +104,6 @@ editBtn.addEventListener("click", () => {
 addBtn.addEventListener("click", () => {
   newAddCardModal.open();
   addFormValidator.resetValidation();
-});
-
-const api = new Api({
-  baseUrl: "https://around.nomoreparties.co/v1/group-12",
-  headers: {
-    authorization: "e0cd9749-f008-4064-bc64-61e9ac8b0f57",
-    "Content-Type": "application/json",
-  },
 });
 
 const cards = api.getInitialCards();
