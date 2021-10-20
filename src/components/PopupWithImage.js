@@ -11,4 +11,8 @@ export class PopupWithImage extends Popup {
     this._popup.querySelector(".modal__caption").textContent = data.name;
     super.open();
   }
+
+  close = () => {
+    super.close();
+  };
 }

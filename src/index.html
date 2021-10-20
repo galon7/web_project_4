@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Around the U.S.</title>
+    <link rel="icon" href="./images/favicon.ico" type="image/x-icon" />
   </head>
   <body class="page">
     <div class="page__container">
@@ -13,8 +14,19 @@
 
       <main>
         <section class="profile">
-          <img src=<%=require("./images/Jacques_Cousteau.jpg")%> alt="photo of
-          Jacques Cousteau" class="profile__avatar" />
+          <div>
+            <img
+              src="<%=require('./images/Jacques_Cousteau.jpg')%>"
+              alt="photo of
+          Jacques Cousteau"
+              class="profile__avatar"
+            />
+            <img
+              src="<%=require('./images/edit-img.png')%>"
+              alt="Edit profile photo"
+              class="profile__avatar-edit"
+            />
+          </div>
           <div class="profile__info">
             <div class="profile__info-header">
               <h1 class="profile__title">Jacques Cousteau</h1>
@@ -38,7 +50,10 @@
           <button class="elements__delete-button"></button>
           <div class="elements__content">
             <h2 class="elements__title"></h2>
-            <button type="button" class="elements__like-button"></button>
+            <div class="elements__likes">
+              <button type="button" class="elements__like-button"></button>
+              <p class="elements__like-number"></p>
+            </div>
           </div>
         </div>
       </template>
@@ -101,6 +116,38 @@
             />
             <span id="card-input-link-error" class="modal__error-text"></span>
             <button type="submit" class="modal__submit-button">Create</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="modal modal_type_delete-card">
+        <div class="modal__container">
+          <button type="button" class="modal__close"></button>
+          <h2 class="modal__title">Are you sure?</h2>
+          <form action="#" class="modal__form" name="modal-form">
+            <button type="submit" class="modal__submit-button">Yes</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="modal modal_type_change-avatar">
+        <div class="modal__container">
+          <button type="button" class="modal__close"></button>
+          <h2 class="modal__title">Change profile picture</h2>
+          <form action="#" class="modal__form" name="modal-form">
+            <input
+              type="url"
+              class="modal__input modal__input_field_profile-picture-link"
+              id="profile-picture-link"
+              placeholder="Profile picture link"
+              name="avatar"
+              required
+            />
+            <span
+              id="profile-picture-link-error"
+              class="modal__error-text"
+            ></span>
+            <button type="submit" class="modal__submit-button">Yes</button>
           </form>
         </div>
       </div>
