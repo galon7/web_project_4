@@ -81,6 +81,7 @@ editAvatarValidator.enableValidation();
 const imageModal = new PopupWithImage(".modal_img");
 
 const newAddCardModal = new PopupWithForm(".modal_type_add-card", (data) => {
+  newAddCardModal._formElement.lastElementChild.textContent = "Saving...";
   const submitObject = { name: cardTitle.value, link: cardLink.value };
   api.addCardApi(submitObject, newAddCardModal);
 });
@@ -88,6 +89,7 @@ const newAddCardModal = new PopupWithForm(".modal_type_add-card", (data) => {
 const newEditProfileModal = new PopupWithForm(
   ".modal_type_edit-profile",
   (data) => {
+    newEditProfileModal._formElement.lastElementChild.textContent = "Saving...";
     const user = { name: data.name, about: data.profession };
     profileTitle.textContent = user.name;
     profileSubtitle.textContent = user.about;
@@ -100,6 +102,8 @@ const newEditProfileModal = new PopupWithForm(
 const newEditAvatarModal = new PopupWithForm(
   ".modal_type_change-avatar",
   (data) => {
+    newEditAvatarModal._formElement.lastElementChild.textContent = "Saving...";
+
     api.updateAvatar(data, newEditAvatarModal);
   }
 );
