@@ -10,12 +10,15 @@ import "./index.css";
 
 const editBtn = document.querySelector(".profile__info-edit");
 const addBtn = document.querySelector(".profile__add-button");
+const avatarBtn = document.querySelector(".profile__avatar");
 
 const editProfileModal = document.querySelector(".modal_type_edit-profile");
 const addCardModal = document.querySelector(".modal_type_add-card");
+const editAvatarModal = document.querySelector(".modal_type_change-avatar");
 
 const addCardForm = addCardModal.querySelector(".modal__form");
 const editProfileForm = editProfileModal.querySelector(".modal__form");
+const editAvatarForm = editAvatarModal.querySelector(".modal__form");
 
 const cardTitle = document.querySelector(".modal__input_field_title");
 const cardLink = document.querySelector(".modal__input_field_image-link");
@@ -70,6 +73,10 @@ const addFormValidator = new FormValidator(config, addCardForm);
 addFormValidator.enableValidation();
 const editFormValidator = new FormValidator(config, editProfileForm);
 editFormValidator.enableValidation();
+const editAvatarValidator = new FormValidator(config, editAvatarForm);
+editAvatarValidator.enableValidation();
+
+//----------------------------Modals-----------------------------------------
 
 const imageModal = new PopupWithImage(".modal_img");
 
@@ -90,6 +97,13 @@ const newEditProfileModal = new PopupWithForm(
   }
 );
 
+const newEditAvatarModal = new PopupWithForm(
+  ".modal_type_change-avatar",
+  (data) => {
+    api.updateAvatar(data, newEditAvatarModal);
+  }
+);
+
 export const deleteCardModal = new PopupWithForm(
   ".modal_type_delete-card",
   (data) => {
@@ -98,6 +112,12 @@ export const deleteCardModal = new PopupWithForm(
     deleteCardModal.close();
   }
 );
+
+//---------------------------Event listeners---------------------------------
+
+avatarBtn.addEventListener("click", () => {
+  newEditAvatarModal.open();
+});
 
 editBtn.addEventListener("click", () => {
   const data = userInfo.getUserInfo();
@@ -111,6 +131,8 @@ addBtn.addEventListener("click", () => {
   newAddCardModal.open();
   addFormValidator.resetValidation();
 });
+
+//----------------------------Initial-----------------------------------------
 
 const cards = api.getInitialCards();
 
