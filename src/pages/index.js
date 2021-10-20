@@ -31,11 +31,11 @@ const profileAvatar = document.querySelector(".profile__avatar");
 
 const elements = document.querySelector(".elements");
 
-let cardList;
+export let cardList;
 
 //--------------------------------------------------------------------------
 
-const api = new Api({
+export const api = new Api({
   baseUrl: "https://around.nomoreparties.co/v1/group-12",
   headers: {
     authorization: "e0cd9749-f008-4064-bc64-61e9ac8b0f57",
@@ -53,9 +53,7 @@ function addCard(item) {
 
 const userInformation = api.getUserInfo();
 
-console.log(userInformation);
 userInformation.then((data) => {
-  console.log(data);
   profileTitle.textContent = data.name;
   profileSubtitle.textContent = data.about;
   profileAvatar.src = data.avatar;
@@ -77,8 +75,7 @@ const imageModal = new PopupWithImage(".modal_img");
 
 const newAddCardModal = new PopupWithForm(".modal_type_add-card", (data) => {
   const submitObject = { name: cardTitle.value, link: cardLink.value };
-  addCard(submitObject);
-  newAddCardModal.close();
+  api.addCardApi(submitObject, newAddCardModal);
 });
 
 const newEditProfileModal = new PopupWithForm(
@@ -90,6 +87,15 @@ const newEditProfileModal = new PopupWithForm(
     userInfo.setUserInfo(user);
     api.editProfile(user);
     newEditProfileModal.close();
+  }
+);
+
+export const deleteCardModal = new PopupWithForm(
+  ".modal_type_delete-card",
+  (data) => {
+    api.deleteCard(deleteCardModal.id);
+    deleteCardModal.removeElement();
+    deleteCardModal.close();
   }
 );
 

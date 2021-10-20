@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Around the U.S.</title>
+    <link rel="icon" href="./images/favicon.ico" type="image/x-icon" />
   </head>
   <body class="page">
     <div class="page__container">
@@ -38,7 +39,10 @@
           <button class="elements__delete-button"></button>
           <div class="elements__content">
             <h2 class="elements__title"></h2>
-            <button type="button" class="elements__like-button"></button>
+            <div class="elements__likes">
+              <button type="button" class="elements__like-button"></button>
+              <p class="elements__like-number"></p>
+            </div>
           </div>
         </div>
       </template>
@@ -101,6 +105,16 @@
             />
             <span id="card-input-link-error" class="modal__error-text"></span>
             <button type="submit" class="modal__submit-button">Create</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="modal modal_type_delete-card">
+        <div class="modal__container">
+          <button type="button" class="modal__close"></button>
+          <h2 class="modal__title">Are you sure?</h2>
+          <form action="#" class="modal__form" name="modal-form">
+            <button type="submit" class="modal__submit-button">Yes</button>
           </form>
         </div>
       </div>
