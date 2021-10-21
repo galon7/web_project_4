@@ -6,6 +6,7 @@ import { PopupWithForm } from "../components/PopupWithForm.js";
 import { UserInfo } from "../components/UserInfo.js";
 import { config, initialCards } from "../utils/constants.js";
 import { Api } from "../components/Api.js";
+import { renderLoading } from "../utils/utils.js";
 import "./index.css";
 
 const editBtn = document.querySelector(".profile__info-edit");
@@ -34,8 +35,7 @@ const profileAvatar = document.querySelector(".profile__avatar");
 
 const elements = document.querySelector(".elements");
 
-export let cardList;
-
+const userID = {};
 //--------------------------------------------------------------------------
 
 export const api = new Api({
@@ -46,21 +46,15 @@ export const api = new Api({
   },
 });
 
-function addCard(item) {
-  const newCard = new Card(item, ".elements__item", () => {
-    imageModal.open(item);
-  });
-  const cardElement = newCard.createCard();
-  cardList.addItem(cardElement);
-}
-
-const userInformation = api.getUserInfo();
-
-userInformation.then((data) => {
-  profileTitle.textContent = data.name;
-  profileSubtitle.textContent = data.about;
-  profileAvatar.src = data.avatar;
-});
+api
+  .getUserInfo()
+  .then((data) => {
+    profileTitle.textContent = data.name;
+    profileSubtitle.textContent = data.about;
+    profileAvatar.src = data.avatar;
+    userID.data = data._id;
+  })
+  .catch((err) => console.log(`Error.....: ${err}`));
 
 const user = {
   nameSelector: profileTitle,
@@ -81,39 +75,59 @@ editAvatarValidator.enableValidation();
 const imageModal = new PopupWithImage(".modal_img");
 
 const newAddCardModal = new PopupWithForm(".modal_type_add-card", (data) => {
-  newAddCardModal._formElement.lastElementChild.textContent = "Saving...";
+  const addSubmitBtn = newAddCardModal._formElement.lastElementChild;
+  renderLoading(true, addSubmitBtn);
+
   const submitObject = { name: cardTitle.value, link: cardLink.value };
-  api.addCardApi(submitObject, newAddCardModal);
+  api
+    .addCardApi(submitObject)
+    .then(() => {
+      newAddCardModal.close();
+    })
+    .catch((err) => console.log(`Error.....: ${err}`))
+    .finally(() => renderLoading(false, addSubmitBtn));
 });
 
 const newEditProfileModal = new PopupWithForm(
   ".modal_type_edit-profile",
   (data) => {
-    newEditProfileModal._formElement.lastElementChild.textContent = "Saving...";
+    const editSubmitBtn = newEditProfileModal._formElement.lastElementChild;
+    renderLoading(true, editSubmitBtn);
     const user = { name: data.name, about: data.profession };
     profileTitle.textContent = user.name;
     profileSubtitle.textContent = user.about;
     userInfo.setUserInfo(user);
-    api.editProfile(user);
-    newEditProfileModal.close();
+    api
+      .editProfile(user)
+      .then(() => newEditProfileModal.close())
+      .catch((err) => console.log(`Error.....: ${err}`))
+      .finally(() => renderLoading(false, editSubmitBtn));
   }
 );
 
 const newEditAvatarModal = new PopupWithForm(
   ".modal_type_change-avatar",
   (data) => {
-    newEditAvatarModal._formElement.lastElementChild.textContent = "Saving...";
-
-    api.updateAvatar(data, newEditAvatarModal);
+    const avatarSubmitBtn = newEditAvatarModal._formElement.lastElementChild;
+    renderLoading(true, avatarSubmitBtn);
+    api
+      .updateAvatar(data)
+      .then(() => newEditAvatarModal.close())
+      .catch((err) => console.log(`Error.....: ${err}`))
+      .finally(() => renderLoading(false, avatarSubmitBtn));
   }
 );
 
 export const deleteCardModal = new PopupWithForm(
   ".modal_type_delete-card",
   (data) => {
-    api.deleteCard(deleteCardModal.id);
-    deleteCardModal.removeElement();
-    deleteCardModal.close();
+    api
+      .deleteCard(deleteCardModal.id)
+      .then(() => deleteCardModal.close())
+      .catch((err) => console.log(`Error.....: ${err}`))
+      .finally(() => {
+        deleteCardModal.removeElement();
+      });
   }
 );
 
@@ -138,15 +152,26 @@ addBtn.addEventListener("click", () => {
 
 //----------------------------Initial-----------------------------------------
 
-const cards = api.getInitialCards();
+function addCard(item) {
+  item.userID = userID.data;
+  const newCard = new Card(item, ".elements__item", () => {
+    imageModal.open(item);
+  });
+  return newCard.createCard();
+}
 
-cards.then((data) => {
-  cardList = new Section(
-    {
-      items: data,
-      renderer: addCard,
+api
+  .getInitialCards()
+  .then((data) => {
+    cardList.render(data);
+  })
+  .catch((err) => console.log(`Error.....: ${err}`));
+
+const cardList = new Section(
+  {
+    renderer: (item) => {
+      cardList.addItem(addCard(item));
     },
-    elements
-  );
-  cardList.render();
-});
+  },
+  elements
+);

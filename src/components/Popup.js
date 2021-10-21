@@ -28,12 +28,12 @@ export class Popup {
     this._popup.classList.add("modal_open");
   }
 
-  close() {
+  close = () => {
     this._popup
       .querySelector(".modal__close")
       .removeEventListener("click", this.close);
     document.removeEventListener("keydown", this._handleEscClose);
     this._popup.removeEventListener("mousedown", this._closeOnClickOutside);
     this._popup.classList.remove("modal_open");
-  }
+  };
 }

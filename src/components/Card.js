@@ -7,6 +7,7 @@ export class Card {
     this._alt = item.name;
     this._likeState = false;
     this._likes = item.likes.length;
+    this._userId = item.userID;
     this._ownerId = item.owner._id;
     this._photoId = item._id;
     this._cardTemplate = document
@@ -55,7 +56,7 @@ export class Card {
     this._element = this._cardTemplate.cloneNode(true);
     this._likeBtn = this._element.querySelector(".elements__like-button");
     this._deleteBtn = this._element.querySelector(".elements__delete-button");
-    if (this._ownerId !== "ab5896cd07e7a0e1b0ed64ad") {
+    if (this._ownerId !== this._userId) {
       this._deleteBtn.remove();
     }
     this._image = this._element.querySelector(".elements__img");

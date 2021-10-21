@@ -1,5 +1,4 @@
 import { Popup } from "./Popup.js";
-import { inputName, inputJob } from "../pages/index.js";
 
 export class PopupWithForm extends Popup {
   constructor(popupSelector, handleSubmit) {
@@ -27,13 +26,9 @@ export class PopupWithForm extends Popup {
     this._formElement.addEventListener("submit", this._submitCallback);
   }
 
-  close = () => {
+  close() {
     super.close();
     this._formElement.reset();
     this._formElement.removeEventListener("submit", this._submitCallback);
-  };
-
-  open = () => {
-    super.open();
-  };
+  }
 }
