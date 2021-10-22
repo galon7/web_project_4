@@ -5,7 +5,6 @@ export class Card {
     this._text = item.name;
     this._link = item.link;
     this._alt = item.name;
-    this._likeState = false;
     this._likes = item.likes;
     this._likesNum = item.likes.length;
     this._userId = item.userID;
@@ -20,13 +19,8 @@ export class Card {
   }
 
   _checkIfLiked() {
-    let check = false;
-    this._likes.forEach((item) => {
-      if (item._id === this._userId) {
-        check = true;
-      }
-    });
-    return check;
+    const x = this._likes.some((item) => item._id === this._userId);
+    return x;
   }
 
   _renderLikes() {
@@ -42,12 +36,12 @@ export class Card {
 
   _toggleLikeBtn() {
     this._likeBtn.classList.toggle("elements__like-button_pressed");
-    this.updateLikes();
   }
 
   _addEventListeners() {
     this._likeBtn.addEventListener("click", () => {
       this._toggleLikeBtn();
+      this._handleLike();
     });
 
     this._deleteBtn.addEventListener("click", (e) => {
@@ -66,8 +60,9 @@ export class Card {
   }
 
   updateLikes(data) {
-    this._handleLike();
-    // this._renderLikes();
+    this._likes = data;
+    this._likesNum = data.length;
+    this._renderLikes();
   }
 
   createCard() {

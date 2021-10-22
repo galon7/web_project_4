@@ -163,11 +163,11 @@ function addCard(item) {
       const check = newCard._checkIfLiked();
       if (!check) {
         api.like(item._id).then((data) => {
-          newCard.updateLikes(data);
+          newCard.updateLikes(data.likes);
         });
       } else {
         api.unlike(item._id).then((data) => {
-          newCard.updateLikes(data);
+          newCard.updateLikes(data.likes);
         });
       }
     }
