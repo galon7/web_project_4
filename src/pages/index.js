@@ -4,7 +4,7 @@ import { Section } from "../components/Section.js";
 import { PopupWithImage } from "../components/PopupWithImage.js";
 import { PopupWithForm } from "../components/PopupWithForm.js";
 import { UserInfo } from "../components/UserInfo.js";
-import { config, initialCards } from "../utils/constants.js";
+import { config } from "../utils/constants.js";
 import { Api } from "../components/Api.js";
 import { renderLoading } from "../utils/utils.js";
 import "./index.css";
@@ -24,10 +24,8 @@ const editAvatarForm = editAvatarModal.querySelector(".modal__form");
 const cardTitle = document.querySelector(".modal__input_field_title");
 const cardLink = document.querySelector(".modal__input_field_image-link");
 
-export const inputName = document.querySelector(".modal__input_field_name");
-export const inputJob = document.querySelector(
-  ".modal__input_field_profession"
-);
+const inputName = document.querySelector(".modal__input_field_name");
+const inputJob = document.querySelector(".modal__input_field_profession");
 
 const profileTitle = document.querySelector(".profile__title");
 const profileSubtitle = document.querySelector(".profile__subtitle");
@@ -36,6 +34,7 @@ const profileAvatar = document.querySelector(".profile__avatar");
 const elements = document.querySelector(".elements");
 
 const userID = {};
+
 //--------------------------------------------------------------------------
 
 export const api = new Api({
@@ -154,9 +153,25 @@ addBtn.addEventListener("click", () => {
 
 function addCard(item) {
   item.userID = userID.data;
-  const newCard = new Card(item, ".elements__item", () => {
-    imageModal.open(item);
-  });
+  const newCard = new Card(
+    item,
+    ".elements__item",
+    () => {
+      imageModal.open(item);
+    },
+    () => {
+      const check = newCard._checkIfLiked();
+      if (!check) {
+        api.like(item._id).then((data) => {
+          newCard.updateLikes(data);
+        });
+      } else {
+        api.unlike(item._id).then((data) => {
+          newCard.updateLikes(data);
+        });
+      }
+    }
+  );
   return newCard.createCard();
 }
 
