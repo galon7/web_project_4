@@ -19,8 +19,7 @@ export class Card {
   }
 
   _checkIfLiked() {
-    const x = this._likes.some((item) => item._id === this._userId);
-    return x;
+    return this._likes.some((item) => item._id === this._userId);
   }
 
   _renderLikes() {
