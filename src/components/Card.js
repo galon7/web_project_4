@@ -25,8 +25,8 @@ export class Card {
   _renderLikes() {
     this._likeDgt = this._element.querySelector(".elements__like-number");
     this._likeDgt.textContent = this._likesNum;
-    const checkLike = this._checkIfLiked();
-    if (checkLike) {
+    const isLiked = this._checkIfLiked();
+    if (isLiked) {
       this._likeBtn.classList.add("elements__like-button_pressed");
     } else {
       this._likeBtn.classList.remove("elements__like-button_pressed");

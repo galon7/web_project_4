@@ -33,7 +33,7 @@ const profileAvatar = document.querySelector(".profile__avatar");
 
 const elements = document.querySelector(".elements");
 
-const userID = {};
+let userID;
 
 //--------------------------------------------------------------------------
 
@@ -51,7 +51,7 @@ api
     profileTitle.textContent = data.name;
     profileSubtitle.textContent = data.about;
     profileAvatar.src = data.avatar;
-    userID.data = data._id;
+    userID = data._id;
   })
   .catch((err) => console.log(`Error.....: ${err}`));
 
@@ -80,8 +80,9 @@ const newAddCardModal = new PopupWithForm(".modal_type_add-card", (data) => {
   const submitObject = { name: cardTitle.value, link: cardLink.value };
   api
     .addCardApi(submitObject)
-    .then(() => {
+    .then((data) => {
       newAddCardModal.close();
+      cardList.addItemStart(addCard(data));
     })
     .catch((err) => console.log(`Error.....: ${err}`))
     .finally(() => renderLoading(false, addSubmitBtn));
@@ -122,11 +123,11 @@ export const deleteCardModal = new PopupWithForm(
   (data) => {
     api
       .deleteCard(deleteCardModal.id)
-      .then(() => deleteCardModal.close())
-      .catch((err) => console.log(`Error.....: ${err}`))
-      .finally(() => {
+      .then(() => {
+        deleteCardModal.close();
         deleteCardModal.removeElement();
-      });
+      })
+      .catch((err) => console.log(`Error.....: ${err}`));
   }
 );
 
@@ -152,7 +153,7 @@ addBtn.addEventListener("click", () => {
 //----------------------------Initial-----------------------------------------
 
 function addCard(item) {
-  item.userID = userID.data;
+  item.userID = userID;
   const newCard = new Card(
     item,
     ".elements__item",
@@ -162,13 +163,19 @@ function addCard(item) {
     () => {
       const check = newCard._checkIfLiked();
       if (!check) {
-        api.like(item._id).then((data) => {
-          newCard.updateLikes(data.likes);
-        });
+        api
+          .like(item._id)
+          .then((data) => {
+            newCard.updateLikes(data.likes);
+          })
+          .catch((err) => console.log(`Error.....: ${err}`));
       } else {
-        api.unlike(item._id).then((data) => {
-          newCard.updateLikes(data.likes);
-        });
+        api
+          .unlike(item._id)
+          .then((data) => {
+            newCard.updateLikes(data.likes);
+          })
+          .catch((err) => console.log(`Error.....: ${err}`));
       }
     }
   );

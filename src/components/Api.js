@@ -28,7 +28,7 @@ export class Api {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify(user),
-    });
+    }).then(this._getResponseData);
   }
 
   addCardApi(card) {
