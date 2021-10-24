@@ -82,7 +82,7 @@ const newAddCardModal = new PopupWithForm(".modal_type_add-card", (data) => {
     .addCardApi(submitObject)
     .then((data) => {
       newAddCardModal.close();
-      cardList.addItemStart(createCard(data));
+      cardList.addItemStart(generateCard(data));
     })
     .catch((err) => console.log(`Error.....: ${err}`))
     .finally(() => renderLoading(false, addSubmitBtn));
@@ -153,7 +153,7 @@ addBtn.addEventListener("click", () => {
 
 //----------------------------Initial-----------------------------------------
 
-function createCard(item) {
+function generateCard(item) {
   item.userID = userID;
   const newCard = new Card(
     item,
@@ -193,7 +193,7 @@ api
 const cardList = new Section(
   {
     renderer: (item) => {
-      cardList.addItem(createCard(item));
+      cardList.addItem(generateCard(item));
     },
   },
   elements
