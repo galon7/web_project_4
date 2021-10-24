@@ -82,7 +82,7 @@ const newAddCardModal = new PopupWithForm(".modal_type_add-card", (data) => {
     .addCardApi(submitObject)
     .then((data) => {
       newAddCardModal.close();
-      cardList.addItemStart(addCard(data));
+      cardList.addItemStart(createCard(data));
     })
     .catch((err) => console.log(`Error.....: ${err}`))
     .finally(() => renderLoading(false, addSubmitBtn));
@@ -127,7 +127,8 @@ export const deleteCardModal = new PopupWithForm(
         deleteCardModal.close();
         deleteCardModal.removeElement();
       })
-      .catch((err) => console.log(`Error.....: ${err}`));
+      .catch((err) => console.log(`Error.....: ${err}`))
+      .finally(deleteCardModal.close());
   }
 );
 
@@ -152,7 +153,7 @@ addBtn.addEventListener("click", () => {
 
 //----------------------------Initial-----------------------------------------
 
-function addCard(item) {
+function createCard(item) {
   item.userID = userID;
   const newCard = new Card(
     item,
@@ -192,7 +193,7 @@ api
 const cardList = new Section(
   {
     renderer: (item) => {
-      cardList.addItem(addCard(item));
+      cardList.addItem(createCard(item));
     },
   },
   elements
