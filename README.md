@@ -1,10 +1,14 @@
-# Project 4: Around The U.S.
+# Project 4: ![Around The U.S.](./src/images/header.svg)
 
 ### Overview
 
+- Website
 - Description
 - Technologies
-- Website
+
+**Website**
+
+- [The project on GitHub Pages](https://galon7.github.io/web_project_4/)
 
 **Description**
 
@@ -13,7 +17,3 @@
 **Technologies**
 
 - In this project I used Object Oriented Programming in Javascript and Webpack for bundling.
-
-**Website**
-
-- [The project on GitHub Pages](https://galon7.github.io/web_project_4/)
