@@ -1,6 +1,5 @@
 const path = require("path"); // connect path to webpack config
 const HtmlWebpackPlugin = require("html-webpack-plugin"); // connect plugin
-const { CleanWebpackPlugin } = require("clean-webpack-plugin"); // connect plugin
 const MiniCssExtractPlugin = require("mini-css-extract-plugin"); // connect mini-css-extract-plugin to the project
 
 module.exports = {
@@ -12,6 +11,7 @@ module.exports = {
     path: path.resolve(__dirname, "dist"),
     filename: "main.js",
     publicPath: "",
+    clean: true, // empty dist/ before each build (replaces clean-webpack-plugin)
   },
   target: ["web", "es5"], // ensure the Webpack glue code is ES5 compatible too
   stats: { children: true }, // Show child compilation errors from plugins
@@ -58,7 +58,6 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: "./src/index.html", // path to our index.html file
     }),
-    new CleanWebpackPlugin(), // use plugin
     new MiniCssExtractPlugin(), // connect the plugin for merging CSS files
   ],
 };
